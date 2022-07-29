@@ -8,12 +8,12 @@ const styles = StyleSheet.create({
         borderRadius:20
     },
     container:{
-        width:'100%',
-        padding:10,
+        // width:'100%',
+        padding:8,
     },
     text:{
         fontSize:20,
-        fontWeight:'450',
+        fontWeight:'400',
         color:"#efefef",
     }
 });
