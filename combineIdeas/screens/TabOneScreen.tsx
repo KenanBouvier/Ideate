@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import { useState } from 'react';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
@@ -11,6 +11,10 @@ import StyledButton from '../components/StyledButton';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [index,setIndex] = useState(0);
+
+  const nextComparison = ()=>{
+    setIndex((index+1)%(data.length-1)); 
+  }
 
   return (
     <ScrollView>
@@ -27,6 +31,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           content={"Yes"}
           onPress={()=>{
               // console.warn("You see an idea here!");
+              //We want to show the textinput
+              <TextInput value = "INPUT here">HWowo</TextInput>
+              //Then move on to nextComparison
+              nextComparison();
           }}
           />
           <StyledButton 
@@ -34,6 +42,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           content={"No"}
           onPress={()=>{
               // console.warn("You don't see an idea here!");
+              nextComparison();
           }}
           />
           <StyledButton 
@@ -41,7 +50,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           content={"Next"}
           onPress={()=>{
               // console.warn("Moving to next...");
-              setIndex((index+1)%(data.length-1)); 
+              nextComparison();
           }}
           />
         </View>

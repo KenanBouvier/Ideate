@@ -5,15 +5,27 @@ import styles from "./styles";
 /*
     For this component you can set the button type and will make the colour the corresponding value of the key in the map colourMap
 */
+interface StyledButton{
+    type:string;
+    content:string;
+    onPress:()=>void;
+}
 
-const StyledButton = (props)=>{
+const StyledButton = (props:StyledButton)=>{
     const {type, content, onPress} = props;
-    let colourMap = {
-        "yes":"#b3d9b4",//green
-        "no":"#ff3366", //red
-        "next":"#3d426b",//dark blue
+    let bgColor = "";
+
+    if(type == 'yes'){//green
+        bgColor = "#b3d9b4";
     }
-    const bgColor = colourMap[type];
+    if(type == 'no'){
+        bgColor = "#ff3366";//red
+    }
+    if(type=='next'){
+        bgColor = '#3d426b';//dark blue
+    }
+    
+    // const bgColor = colourMap[type];
     
     return (
         <View style={styles.container}>
