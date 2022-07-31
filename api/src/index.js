@@ -78,7 +78,6 @@ const typeDefs = gql`
     id: ID!
     content: String!
     isCompleted: Boolean!
-
     taskList: TaskList!
   }
 `;
@@ -88,9 +87,7 @@ const resolvers = {
     myTaskLists: async (_, __, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
         console.log(user);
-      const result = await db.collection('TaskList')
-                                .find({ userIds: user._id })
-                                .toArray();
+      const result = await db.collection('TaskList').find({ userIds: user._id }).toArray();
         return result;
     },
 
