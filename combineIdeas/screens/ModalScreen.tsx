@@ -9,7 +9,7 @@ export default function ModalScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>About</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>This is an app aimed to inspire unique ideas and allowing for different creative solutions. This is done through being given supposed random concepts from which you find  </Text>
+      <Text>This is an app aimed to inspire unique ideas and allowing for different creative solutions. This is done through being given supposed random concepts from which you think of a unique connection. </Text>
 
       {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />

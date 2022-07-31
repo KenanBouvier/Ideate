@@ -6,20 +6,26 @@ import IdeaList from '../components/IdeaList';
 
 
 export default function TabTwoScreen() {
+  const inp = {
+        id:"1",
+        title1:"First title",
+        title2:"Second title",
+        description:"THis is description",
+    }
   return (
-    <ScrollView>
-      <View style={styles.container}>
-
-        <IdeaList title1={"First Title"} title2={"Second Title"} description={"Here is the idea content describing how these two ideas can be incorporated together in to one solution"}></IdeaList>
-
-        <IdeaList title1={"This is the first Title"} title2={"Also another Title that wraps"} description={"Some more description! whoah this is so cool"}></IdeaList>
-
-        <IdeaList title1={"Solar panels with"} title2={"Also another Title"} description={"Some more description! whoah this is so cool"}></IdeaList>
-
-        <IdeaList title1={"Another Title"} title2={"Also another Title"} description={"Some more description! whoah this is so cool"}></IdeaList>
-
-        <IdeaList title1={"Another Title"} title2={"Also another Title"} description={"Some more description! whoah this is so cool"}></IdeaList>
-
+    <ScrollView style={styles.container}>
+      <View>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
+        <IdeaList idea={inp}></IdeaList>
       </View>
     </ScrollView>
   );
@@ -28,7 +34,7 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor:"#f7f7ff",
-    flex: 1,
+    // flex: 1,
     padding:20,
   },
 });
