@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
     content:{
-        // paddingTop:"15%",
         padding:10
     },
     title:{

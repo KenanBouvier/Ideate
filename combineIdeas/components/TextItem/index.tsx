@@ -2,7 +2,14 @@ import React from "react";
 import { Text, View } from "react-native";
 import styles from "./styles";
 
-const TextItem = (props)=>{
+interface TextItem{
+    title:String;
+    category:String;
+    description:String;
+    first:Boolean;
+}
+
+const TextItem = (props:TextItem)=>{
     /* 
     properties include:
         Title
@@ -11,6 +18,7 @@ const TextItem = (props)=>{
     */
     const {title,category, description,first} = props;
     let padding = "0%";
+    
     //allow parameters for the first wiki object
     if (first){
         // padding = "15%";
