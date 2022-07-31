@@ -1,7 +1,7 @@
 import React from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 
-interface ListItem{
+interface IdeaList{
     idea:{
         id:string,
         title1:string,
@@ -10,9 +10,9 @@ interface ListItem{
     }
 }
 
-const ListItem = (props:ListItem)=>{
+const IdeaList = (props:IdeaList)=>{
     const {idea} = props;
-    const {title1,title2,description } = idea;
+    const {id,title1,title2,description } = idea;
 
     const onPress = ()=>{
         console.warn(`open Idea ${idea.title1}`)
@@ -32,19 +32,19 @@ const ListItem = (props:ListItem)=>{
         </Pressable>
     )
 }
-export default ListItem;
+export default IdeaList;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:"#f7f7ff",
+    // backgroundColor:"#f7f7ff",
   },
   articleTitles:{
     flexDirection:"row",
-    backgroundColor:"#f7f7ff",
+    // backgroundColor:"#f7f7ff",
     justifyContent:'center',
   },
   ideaContainer:{
-    backgroundColor:"#f7f7ff",    
+    // backgroundColor:"#f7f7ff",    
   },
   titles:{
     fontSize:23,

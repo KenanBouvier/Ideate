@@ -25,7 +25,7 @@ const TextItem = (props:TextItem)=>{
     }
     
     return(
-        <View style={[styles.content,{paddingTop:padding, backgroundColor:"#f7f7ff"}]}>
+        <View style={[styles.content,{paddingTop:padding}]}>
         {/* <View style={styles.content}> */}
             <Text style = {styles.title}>{title}</Text>
             <Text style = {styles.category}>{category}</Text>

@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     },
     container:{
         // width:'100%',
-        backgroundColor:"#f7f7ff",
+        // backgroundColor:"#f7f7ff",
         padding:8,
     },
     text:{

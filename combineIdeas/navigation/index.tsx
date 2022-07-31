@@ -14,8 +14,8 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
+import GenerationScreen from '../screens/GenerationScreen';
+import IdeasScreen from '../screens/IdeasScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -39,6 +39,8 @@ function RootNavigator() {
   return (
     <Stack.Navigator> 
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="GenerationScreen" component={GenerationScreen}/>
+      {/* <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/> */}
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -64,9 +66,11 @@ function BottomTabNavigator() {
       }}>
       <BottomTab.Screen
         name="TabOne"
-        component={TabOneScreen}
+        component={GenerationScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Get Creative!',
+          // headerStyle:{backgroundColor:'#2F4F4F'},
+
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
@@ -86,9 +90,10 @@ function BottomTabNavigator() {
       />
       <BottomTab.Screen
         name="TabTwo"
-        component={TabTwoScreen}
+        component={IdeasScreen}
         options={{
           title: 'My ideas',
+          // headerStyle:{backgroundColor:''},
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

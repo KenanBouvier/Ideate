@@ -9,7 +9,7 @@ import TextItem from '../components/TextItem';
 import data from '../components/data';
 import StyledButton from '../components/StyledButton';
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+export default function GenerationScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [index,setIndex] = useState(0);
 
   const nextComparison = ()=>{
@@ -55,7 +55,6 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
           />
         </View>
           <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-          {/* <EditScreenInfo path="/screens/TabOneScreen.tsx" /> */}
       </View>
     </ScrollView>
   );
@@ -63,7 +62,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor:"#f7f7ff",
+    // backgroundColor:"#f7f7ff",
   },
   separator: {
     marginVertical: 30,
