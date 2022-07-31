@@ -86,7 +86,6 @@ const typeDefs = gql`
 const resolvers = {
   Query: {
     myTaskLists: async (_, __, { db, user }) => {
-        console.log("ENEtered");
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
         console.log(user);
       const result = await db.collection('TaskList')
@@ -102,34 +101,51 @@ const resolvers = {
     }
   },
   Mutation: {
-    signUp: async (_, { input }, { db }) => {
+    signUp: async (root,{input},{db}) =>{
       const hashedPassword = bcrypt.hashSync(input.password);
-      const newUser = {
+      const user = {
         ...input,
-        password: hashedPassword,
+        email:input.email.toLowerCase(),
+        password:hashedPassword,
       }
-      // save to database
-      const result = await db.collection('Users').insertOne(newUser);
-      const user = result.ops[0]
-      return {
+      console.log(user);
+      //now save to database
+      const result = await db.collection('Users').insertOne(user);
+      
+      return{
+        // the schema suggests also id returned which is why below mutation I added a User:{id:...} to manage the extra parameter.
         user,
-        token: getToken(user),
+        token:getToken(user),
       }
     },
-
-    signIn: async (_, { input }, { db }) => {
-      const user = await db.collection('Users').findOne({ email: input.email });
-      const isPasswordCorrect = user && bcrypt.compareSync(input.password, user.password);
-
-      if (!user || !isPasswordCorrect) {
-        throw new Error('Invalid credentials!');
+      signIn: async (root,{input},{db}) =>{
+      const user = await db.collection('Users').findOne({ email:input.email.toLowerCase() });
+      if(!user){
+        throw new Error("Invalid Credentials!");
       }
-
+      // parameters: plaintext password , hashed password then compared.
+      const isPasswordCorrect = bcrypt.compareSync(input.password,user.password);
+      if(!isPasswordCorrect){
+        throw new Error("Invalid Credentials");
+      }
       return {
         user,
-        token: getToken(user),
+        token:getToken(user),
       }
     },
+    // signIn: async (_, { input }, { db }) => {
+    //   const user = await db.collection('Users').findOne({ email: input.email });
+    //   const isPasswordCorrect = user && bcrypt.compareSync(input.password, user.password);
+
+    //   if (!user || !isPasswordCorrect) {
+    //     throw new Error('Invalid credentials!');
+    //   }
+
+    //   return {
+    //     user,
+    //     token: getToken(user),
+    //   }
+    // },
 
     createTaskList: async(_, { title }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }

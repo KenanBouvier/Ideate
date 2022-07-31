@@ -3,6 +3,7 @@ export default [
         title: "Outline of solar energy",
         category: "Technology",
         description: "Solar energy - radiant light and heat from the sun. It has been harnessed by humans since ancient times using a range of ever-evolving technologies.",
+        url:""
     },
     {
         title: "Mixing",
