@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import IdeaList from '../components/IdeaList';
+import IdeaItem from '../components/IdeaItem';
 
 
 export default function IdeasScreen() {
@@ -59,7 +59,7 @@ export default function IdeasScreen() {
        <View style = {styles.container}>
         <FlatList
         data = {ideas}
-        renderItem={({item})=><IdeaList idea={item}/>}
+        renderItem={({item})=><IdeaItem idea={item}/>}
         />
       </View>
   );

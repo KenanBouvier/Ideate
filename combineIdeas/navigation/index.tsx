@@ -16,8 +16,10 @@ import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import GenerationScreen from '../screens/GenerationScreen';
 import IdeasScreen from '../screens/IdeasScreen';
+import IdeaSpecificScreen from '../screens/IdeaSpecificScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import SignInScreen from '../screens/SignInScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -38,9 +40,9 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator> 
+      <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="GenerationScreen" component={GenerationScreen}/>
-      {/* <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/> */}
+      <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />

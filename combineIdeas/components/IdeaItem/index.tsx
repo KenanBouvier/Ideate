@@ -1,7 +1,8 @@
 import React from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
+import {useNavigation} from '@react-navigation/native';
 
-interface IdeaList{
+interface IdeaItem{
     idea:{
         id:string,
         title1:string,
@@ -10,12 +11,13 @@ interface IdeaList{
     }
 }
 
-const IdeaList = (props:IdeaList)=>{
-    const {idea} = props;
-    const {id,title1,title2,description } = idea;
+const IdeaItem = (props:IdeaItem)=>{
+    // const {idea} = props;
+    const {id,title1,title2,description } = props.idea;
+    const navigation = useNavigation();
 
     const onPress = ()=>{
-        console.warn(`open Idea ${idea.title1}`)
+      navigation.navigate('IdeaSpecificScreen')
     }
 
     return(
@@ -32,7 +34,7 @@ const IdeaList = (props:IdeaList)=>{
         </Pressable>
     )
 }
-export default IdeaList;
+export default IdeaItem;
 
 const styles = StyleSheet.create({
   container: {
