@@ -15,7 +15,7 @@ const SIGN_UP_MUTATION = gql`
     token
     user {
       id,
-      name
+      name,
     }
   }
 }
@@ -34,7 +34,7 @@ export default function SignUpScreen() {
 
     const onSubmit = ()=>{
         signUp({variables:{name,email,password}})
-        
+            
         // navigation.navigate('Root');
     }
 
