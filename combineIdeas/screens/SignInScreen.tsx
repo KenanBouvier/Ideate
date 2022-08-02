@@ -1,19 +1,47 @@
-import { View ,TextInput,Pressable,StyleSheet, ActivityIndicator} from 'react-native'
-import React, { useState } from 'react'
+import { View ,TextInput,Alert,Pressable,StyleSheet, ActivityIndicator} from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { Text } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import {useMutation,gql} from '@apollo/client';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const SIGN_IN_MUTATION = gql`
+    mutation signIn($email: String!, $password:String!){
+  signIn(input:{email:$email,password:$password}){
+    token
+    user {
+      id,
+      name,
+    }
+  }
+}
+`;
 
 export default function SignUpScreen() {
-    const [name,setName] = useState('');
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
 
     const navigation = useNavigation();
 
+    const [signIn,{data,error,loading}] = useMutation(SIGN_IN_MUTATION);
+
+
+    useEffect(()=>{
+        if(error){
+            Alert.alert('Invalid credentials, try again');
+        }
+    },[error])
+
+    if(data){
+        AsyncStorage.setItem('token',data.signIn.token)
+            .then(()=>{
+                navigation.navigate("Root");
+            })
+    }
 
     const onSubmit = ()=>{
-        navigation.navigate("Root");
+        signIn({variables:{email,password}});
     }
 
     const redirectSignUp = ()=>{
@@ -37,7 +65,7 @@ export default function SignUpScreen() {
         secureTextEntry
         style = {[styles.textInput,{marginBottom:50}]}
         />
-        <Pressable onPress={onSubmit} style = {styles.pressable}>
+        <Pressable disabled={loading} onPress={onSubmit} style = {styles.pressable}>
             <Text style = {styles.txt}>Sign In</Text>
         </Pressable>
         <Pressable onPress={redirectSignUp} style = {styles.signUpPressable}>

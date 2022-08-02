@@ -21,6 +21,7 @@ import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../typ
 import LinkingConfiguration from './LinkingConfiguration';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -41,6 +42,7 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator> 
+      <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
