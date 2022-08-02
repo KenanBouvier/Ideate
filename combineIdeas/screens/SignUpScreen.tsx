@@ -4,6 +4,23 @@ import { Text } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import {useMutation,gql} from '@apollo/client';
 
+
+const SIGN_UP_MUTATION = gql`
+    mutation signUp($email: String!, $password:String!, $name:String!) {
+    signUp(input:{
+        email:$email,
+        password:$password,
+        name:$name
+        }){
+    token
+    user {
+      id,
+      name
+    }
+  }
+}
+`;
+
 export default function SignUpScreen() {
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
@@ -11,17 +28,29 @@ export default function SignUpScreen() {
 
     const navigation = useNavigation();
 
+    const [signUp,{data,error,loading}] = useMutation(SIGN_UP_MUTATION);
+    console.log(data);
+    console.log(error);
 
     const onSubmit = ()=>{
-        navigation.navigate("Root");
+        signUp({variables:{name,email,password}})
+        
+        // navigation.navigate('Root');
     }
 
-    const redirectSignUp = ()=>{
-        navigation.navigate('SignUp');
+    const redirectSignIn = ()=>{
+        navigation.navigate('SignIn');
     }
 
   return (
     <View style = {styles.container}>
+        <TextInput
+        placeholder='Name'
+        placeholderTextColor={'#48494a'}
+        value={name}
+        onChangeText={setName}
+        style = {styles.textInput}
+        />
         <TextInput
         placeholder='Email address'
         placeholderTextColor={'#48494a'}
@@ -37,13 +66,14 @@ export default function SignUpScreen() {
         secureTextEntry
         style = {[styles.textInput,{marginBottom:50}]}
         />
-        <Pressable onPress={onSubmit} style = {styles.pressable}>
-            <Text style = {styles.txt}>Sign In</Text>
+        <Pressable disabled={loading} onPress={onSubmit} style = {styles.pressable}>
+            {loading && <ActivityIndicator/>}
+            <Text style = {styles.txt}>Sign Up</Text>
         </Pressable>
-        <Pressable onPress={redirectSignUp} style = {styles.signUpPressable}>
+        <Pressable onPress={redirectSignIn} style = {styles.signUpPressable}>
             <View style = {styles.signUpView}>
-                <Text style={styles.signUptxt}>Are you new here? </Text>
-                <Text style = {styles.signInTxt}>Sign Up</Text>
+                <Text style={styles.signUptxt}>Already have an account? </Text>
+                <Text style = {styles.signInTxt}>Sign In</Text>
             </View>
         </Pressable>
     </View>
@@ -99,4 +129,3 @@ const styles = StyleSheet.create({
     }
 
 });
-
