@@ -14,7 +14,6 @@ interface StyledButton{
 const StyledButton = (props:StyledButton)=>{
     const {type, content, onPress} = props;
     let bgColor = "";
-
     if(type == 'yes'){//green
         bgColor = "#b3d9b4";
     }

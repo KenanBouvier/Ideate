@@ -17,7 +17,8 @@ const IdeaItem = (props:IdeaItem)=>{
     const navigation = useNavigation();
 
     const onPress = ()=>{
-      navigation.navigate('IdeaSpecificScreen')
+      navigation.navigate('IdeaSpecificScreen');
+      // feed in parameters also when navigating
     }
 
     return(

@@ -29,7 +29,7 @@ const typeDefs = gql`
     signUp(input: SignUpInput!): AuthUser!
     signIn(input: SignInInput!): AuthUser!
 
-    createTaskList(title: String!): TaskList!
+    createIdea(title: String!): TaskList!
     updateTaskList(id: ID!, title: String!): TaskList!
     deleteTaskList(id: ID!): Boolean!
     addUserToTaskList(taskListId: ID!, userId: ID!): TaskList
@@ -144,7 +144,7 @@ const resolvers = {
     //   }
     // },
 
-    createTaskList: async(_, { title }, { db, user }) => {
+    createIdea: async(_, { title }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
       const newTaskList = {

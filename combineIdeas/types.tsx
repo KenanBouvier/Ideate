@@ -17,6 +17,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
   IdeaSpecificScreen:undefined;
+  Ideas:undefined;
   NotFound:undefined;
   SignIn:undefined;
   SignUp:undefined;

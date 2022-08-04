@@ -34,7 +34,8 @@ export default function SignUpScreen() {
     },[error])
 
     if(data){
-        AsyncStorage.setItem('token',data.signIn.token)
+        console.log("data not null");
+        AsyncStorage.setItem('token',data.signIn.token)  
             .then(()=>{
                 navigation.navigate("Root");
             })
@@ -66,6 +67,7 @@ export default function SignUpScreen() {
         style = {[styles.textInput,{marginBottom:50}]}
         />
         <Pressable disabled={loading} onPress={onSubmit} style = {styles.pressable}>
+            {loading && <ActivityIndicator/>}
             <Text style = {styles.txt}>Sign In</Text>
         </Pressable>
         <Pressable onPress={redirectSignUp} style = {styles.signUpPressable}>
