@@ -29,7 +29,7 @@ const typeDefs = gql`
     signUp(input: SignUpInput!): AuthUser!
     signIn(input: SignInInput!): AuthUser!
 
-    createIdea(title1: String!,title2:String!,description:String,summary:String): TaskList!
+    createIdea(title: String!): TaskList!
     updateTaskList(id: ID!, title: String!): TaskList!
     deleteTaskList(id: ID!): Boolean!
     addUserToTaskList(taskListId: ID!, userId: ID!): TaskList
@@ -67,10 +67,7 @@ const typeDefs = gql`
   type TaskList {
     id: ID!
     createdAt: String!
-    title1: String!
-    title2:String!
-    description:String
-    summary:String
+    title: String!
     progress: Float
 
     users: [User!]!
@@ -81,7 +78,6 @@ const typeDefs = gql`
     id: ID!
     content: String!
     isCompleted: Boolean!
-
     taskList: TaskList!
   }
 `;
@@ -90,16 +86,15 @@ const resolvers = {
   Query: {
     myTaskLists: async (_, __, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
-
-      return await db.collection('IdeaList')
-                                .find({ userIds: user._id })
-                                .toArray();
+        console.log(user);
+      const result = await db.collection('TaskList').find({ userIds: user._id }).toArray();
+        return result;
     },
 
     getTaskList: async(_, { id }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
       
-      return await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
+      return await db.collection('TaskList').findOne({ _id: ObjectId(id) });
     }
   },
   Mutation: {
@@ -120,39 +115,38 @@ const resolvers = {
         token:getToken(user),
       }
     },
-
-    signIn: async (_, { input }, { db }) => {
-      const user = await db.collection('Users').findOne({ email: input.email });
-      const isPasswordCorrect = user && bcrypt.compareSync(input.password, user.password);
-
-      if (!user || !isPasswordCorrect) {
-        throw new Error('Invalid credentials!');
+      signIn: async (root,{input},{db}) =>{
+      const user = await db.collection('Users').findOne({ email:input.email.toLowerCase() });
+      if(!user){
+        throw new Error("Invalid Credentials!");
       }
-
+      // parameters: plaintext password , hashed password then compared.
+      const isPasswordCorrect = bcrypt.compareSync(input.password,user.password);
+      if(!isPasswordCorrect){
+        throw new Error("Invalid Credentials");
+      }
       return {
         user,
-        token: getToken(user),
+        token:getToken(user),
       }
     },
 
-    createIdea: async(_, { title1,title2,description,summary }, { db, user }) => {
+    createIdea: async(_, { title }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
       const newTaskList = {
-        title1,
-        title2,
-        description,
+        title,
         createdAt: new Date().toISOString(),
         userIds: [user._id]
       }
-      const result = await db.collection('IdeaList').insertOne(newTaskList);
+      const result = await db.collection('TaskList').insertOne(newTaskList);
       return newTaskList;
     },
 
     updateTaskList: async(_, { id, title }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
-      const result = await db.collection('IdeaList')
+      const result = await db.collection('TaskList')
                             .updateOne({
                               _id: ObjectId(id)
                             }, {
@@ -161,20 +155,20 @@ const resolvers = {
                               }
                             })
       
-      return await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
+      return await db.collection('TaskList').findOne({ _id: ObjectId(id) });
     },
 
     addUserToTaskList: async(_, { taskListId, userId }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
-      const taskList = await db.collection('IdeaList').findOne({ _id: ObjectId(taskListId) });
+      const taskList = await db.collection('TaskList').findOne({ _id: ObjectId(taskListId) });
       if (!taskList) {
         return null;
       }
       if (taskList.userIds.find((dbId) => dbId.toString() === userId.toString())) {
         return taskList;
       }
-      await db.collection('IdeaList')
+      await db.collection('TaskList')
               .updateOne({
                 _id: ObjectId(taskListId)
               }, {
@@ -190,7 +184,7 @@ const resolvers = {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
       
       // TODO only collaborators of this task list should be able to delete
-      await db.collection('IdeaList').removeOne({ _id: ObjectId(id) });
+      await db.collection('TaskList').removeOne({ _id: ObjectId(id) });
 
       return true;
     },
@@ -259,7 +253,7 @@ const resolvers = {
   ToDo: {
     id: ({ _id, id }) => _id || id,
     taskList: async ({ taskListId }, _, { db }) => (
-      await db.collection('IdeaList').findOne({ _id: ObjectId(taskListId) })
+      await db.collection('TaskList').findOne({ _id: ObjectId(taskListId) })
     )
   },
 

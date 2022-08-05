@@ -8,13 +8,16 @@ interface IdeaItem{
         title1:string,
         title2:string,
         description:string,
+        summary:string,
+        createdAt:string,
     }
 }
 
 const IdeaItem = (props:IdeaItem)=>{
-    // const {idea} = props;
-    const {id,title1,title2,description } = props.idea;
+    const {id,title1,title2,description,summary } = props.idea;
     const navigation = useNavigation();
+    console.log("RECEIVED");
+    console.log(props.idea);
 
     const onPress = ()=>{
       navigation.navigate('IdeaSpecificScreen');
@@ -28,7 +31,7 @@ const IdeaItem = (props:IdeaItem)=>{
                 <View style={styles.articleTitles}>
                     <Text style={styles.titles}>{title1}{" + "}{title2}</Text>
                 </View>
-                <Text style = {styles.ideaContent}>{description}</Text>
+                <Text style = {styles.ideaContent}>{summary}{description}</Text>
                 </View>
                 <View style={styles.separator} />
             </View>
