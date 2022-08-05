@@ -5,10 +5,13 @@ import IdeaItem from '../components/IdeaItem';
 import { useQuery,gql } from '@apollo/client';
 
 const MY_IDEAS = gql`
-  query myIdeas{
-    myIdeas {
+  query myTaskLists{
+    myTaskLists {
     id
-    title
+    title1
+    title2
+    description
+    summary
     createdAt
     }
   }
@@ -23,16 +26,14 @@ export default function IdeasScreen() {
   
   useEffect(()=>{
       if(error){
-        console.log(error.message);
         Alert.alert('Error retrieving ideas ',error.message);
       }
   },[error]);
 
-
   useEffect(()=>{
       if(data){
-        console.log(data);
-        setIdeas(data.myIdeas);
+       console.log(data) ;
+        setIdeas(data.myTaskLists);
       }
   },[data]);
 
