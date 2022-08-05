@@ -21,7 +21,7 @@ const getUserFromToken = async (token, db) => {
 
 const typeDefs = gql`
   type Query {
-    myTaskLists: [TaskList!]!
+    myIdeas: [TaskList!]!
     getTaskList(id: ID!): TaskList
   }
 
@@ -84,7 +84,7 @@ const typeDefs = gql`
 
 const resolvers = {
   Query: {
-    myTaskLists: async (_, __, { db, user }) => {
+    myIdeas: async (_, __, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
         console.log(user);
       const result = await db.collection('TaskList').find({ userIds: user._id }).toArray();
@@ -130,19 +130,6 @@ const resolvers = {
         token:getToken(user),
       }
     },
-    // signIn: async (_, { input }, { db }) => {
-    //   const user = await db.collection('Users').findOne({ email: input.email });
-    //   const isPasswordCorrect = user && bcrypt.compareSync(input.password, user.password);
-
-    //   if (!user || !isPasswordCorrect) {
-    //     throw new Error('Invalid credentials!');
-    //   }
-
-    //   return {
-    //     user,
-    //     token: getToken(user),
-    //   }
-    // },
 
     createIdea: async(_, { title }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }

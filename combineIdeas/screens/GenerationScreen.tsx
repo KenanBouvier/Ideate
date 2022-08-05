@@ -16,8 +16,8 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
   }
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <ScrollView>
         <TextItem title={data[index].title} category={data[index].category} description={data[index].description} first={true} />
 
         <View>
@@ -29,7 +29,6 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
           type={"yes"} 
           content={"Yes"}
           onPress={()=>{
-              // console.warn("You see an idea here!");
               //We want to show the textinput
               <TextInput value = "INPUT here">HWowo</TextInput>
               //Then move on to nextComparison
@@ -40,7 +39,6 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
           type={"no"} 
           content={"No"}
           onPress={()=>{
-              // console.warn("You don't see an idea here!");
               nextComparison();
           }}
           />
@@ -48,20 +46,18 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
           type={"next"} 
           content={"Next"}
           onPress={()=>{
-              // console.warn("Moving to next...");
               nextComparison();
           }}
           />
         </View>
-          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor:"#f7f7ff",
+    flex:1,
   },
   separator: {
     marginVertical: 30,

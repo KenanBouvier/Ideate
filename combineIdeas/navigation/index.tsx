@@ -9,6 +9,7 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons'; 
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
@@ -79,7 +80,8 @@ function BottomTabNavigator() {
           title: 'Get Creative!',
           // headerStyle:{backgroundColor:'#2F4F4F'},
 
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <FontAwesome5 name="lightbulb" size={24} color="black" />,
+          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -102,7 +104,7 @@ function BottomTabNavigator() {
         options={{
           title: 'My ideas',
           // headerStyle:{backgroundColor:''},
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="book" color={color} />,
         }}
       />
     </BottomTab.Navigator>

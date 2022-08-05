@@ -63,6 +63,7 @@ export default function IdeaSpecificScreen(props:IdeaSpecificScreen) {
 
 const styles = StyleSheet.create({
   container: { 
+    flex:1,
     padding:20,
 
   },

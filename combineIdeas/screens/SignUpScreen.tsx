@@ -43,12 +43,9 @@ export default function SignUpScreen() {
 
     }
 
-    console.log(data);
-    console.log(error);
 
     const onSubmit = ()=>{
         signUp({variables:{name,email,password}})
-            
     }
 
     const redirectSignIn = ()=>{
@@ -77,6 +74,7 @@ export default function SignUpScreen() {
         value={password}
         onChangeText={setPassword}
         secureTextEntry
+        onSubmitEditing={onSubmit}
         style = {[styles.textInput,{marginBottom:50}]}
         />
         <Pressable disabled={loading} onPress={onSubmit} style = {styles.pressable}>

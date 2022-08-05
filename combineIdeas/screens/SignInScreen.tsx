@@ -63,6 +63,7 @@ export default function SignUpScreen() {
         placeholderTextColor={'#48494a'}
         value={password}
         onChangeText={setPassword}
+        onSubmitEditing={onSubmit}
         secureTextEntry
         style = {[styles.textInput,{marginBottom:50}]}
         />

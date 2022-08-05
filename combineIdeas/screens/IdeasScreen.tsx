@@ -40,59 +40,6 @@ export default function IdeasScreen() {
     return <ActivityIndicator/>
   }
 
-  // const [ideas,setIdeas] = useState([ {
-  //       id:"1",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description",
-  //   },{
-  //       id:"2",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },{
-  //       id:"3",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },{
-  //       id:"4",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  //   {
-  //       id:"5",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  //   {
-  //       id:"6",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  //   {
-  //       id:"7",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  //   {
-  //       id:"8",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  //   {
-  //       id:"9",
-  //       title1:"First title",
-  //       title2:"Second title",
-  //       description:"THis is description", 
-  //   },
-  // ]);
-
   return (
        <View style = {styles.container}>
         <FlatList
@@ -105,8 +52,7 @@ export default function IdeasScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor:"#f7f7ff",
-    // flex: 1,
+    flex: 1,
     padding:20,
   },
   text:{
