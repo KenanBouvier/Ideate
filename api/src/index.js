@@ -135,11 +135,7 @@ const resolvers = {
       }
     },
 
-<<<<<<< HEAD
-    createIdea: async(_, { title }, { db, user }) => {
-=======
     createIdea: async(_, { title1,title2,description,summary }, { db, user }) => {
->>>>>>> temp-work
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
       const newTaskList = {

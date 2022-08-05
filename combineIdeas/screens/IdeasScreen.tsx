@@ -5,8 +5,8 @@ import IdeaItem from '../components/IdeaItem';
 import { useQuery,gql } from '@apollo/client';
 
 const MY_IDEAS = gql`
-  query myTaskLists{
-    myTaskLists {
+  query myIdeas{
+    myIdeas {
     id
     title1
     title2
@@ -32,8 +32,7 @@ export default function IdeasScreen() {
 
   useEffect(()=>{
       if(data){
-       console.log(data) ;
-        setIdeas(data.myTaskLists);
+        setIdeas(data.myIdeas);
       }
   },[data]);
 
