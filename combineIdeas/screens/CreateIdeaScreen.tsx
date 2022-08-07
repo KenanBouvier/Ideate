@@ -54,13 +54,12 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
     useEffect(()=>{
         if(data){
             console.log(data);
-            console.log("GOOD STUFF IS HAPPENING :))))))");
             navigation.navigate('Ideas');
         }
     },[data])
 
     const onSubmit = ()=>{
-        createIdea({variables:{summary,description , title1 , title2}})
+        createIdea({variables:{summary, description , title1 , title2}})
         Alert.alert("Submit :)");
     }
 

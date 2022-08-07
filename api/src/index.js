@@ -110,7 +110,6 @@ const resolvers = {
         email:input.email.toLowerCase(),
         password:hashedPassword,
       }
-      console.log(user);
       //now save to database
       const result = await db.collection('Users').insertOne(user);
       
@@ -142,6 +141,7 @@ const resolvers = {
         title1,
         title2,
         description,
+        summary,
         createdAt: new Date().toISOString(),
         userIds: [user._id]
       }
@@ -160,7 +160,7 @@ const resolvers = {
                                 title
                               }
                             })
-      
+ 
       return await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
     },
 

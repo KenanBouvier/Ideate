@@ -16,8 +16,6 @@ interface IdeaItem{
 const IdeaItem = (props:IdeaItem)=>{
     const {id,title1,title2,description,summary } = props.idea;
     const navigation = useNavigation();
-    console.log("RECEIVED");
-    console.log(props.idea);
 
     const onPress = ()=>{
       navigation.navigate('IdeaSpecificScreen');
