@@ -19,6 +19,7 @@ export default function IdeaSpecificScreen(props:IdeaSpecificScreen) {
       id:'1',
       title1:'This is the first title!',
       title2:'This is the second title!',
+      summary:"this is a summary of all",
       description:'Woah this is a description of my idea with these two titles. Hopefully I can think of an idea with them two... maybe' 
     }
 

@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, TextInput, Pressable, Alert } from 'react-native';
+import { ScrollView, StyleSheet, TextInput, Pressable, Alert, ActivityIndicator } from 'react-native';
 import { useState , useEffect} from 'react';
 import { Text, View } from '../components/Themed';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
@@ -32,18 +32,20 @@ const ADD_IDEA = gql`
 
 
 export default function CreateIdeaScreen({ route, navigation }: RootStackScreenProps<'CreateIdea'>) {
-
     const [summary,setSummary] = useState('');
     const [description,setDescription] = useState('');
-    const [title1,setTitle1] =useState('');
+    const [title1,setTitle1] = useState('');
     const [title2,setTitle2] = useState('');
-
-    // setTitle1(inputTitle1);
-    // setTitle2(inputTitle2);
+    
 
     // const navigation = useNavigation();
 
     const [createIdea,{data,error,loading}] = useMutation(ADD_IDEA);
+
+    useEffect(()=>{
+        setTitle1(route.params[0]);
+        setTitle2(route.params[1]);
+    })
 
     useEffect(()=>{
         if(error){
@@ -60,7 +62,6 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
 
     const onSubmit = ()=>{
         createIdea({variables:{summary, description , title1 , title2}})
-        Alert.alert("Submit :)");
     }
 
     const redirectSignUp = ()=>{
@@ -69,12 +70,19 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
 
   return (
     <View style = {styles.container}>
+        <View style = {styles.titleContainer}>
+            <Text style = {styles.title}>{title1}</Text>
+            <Text style ={[styles.title,{alignContent:'center',justifyContent: 'center',}]} >&</Text>
+            <Text style = {styles.title}>{title2}</Text>
+        </View>
+
         <TextInput
         placeholder='Brief summary'
         placeholderTextColor={'#48494a'}
         value={summary}
         onChangeText={setSummary}
         style = {styles.textInput}
+        multiline
         />
         <TextInput
         placeholder='Description'
@@ -83,8 +91,10 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
         onChangeText={setDescription}
         onSubmitEditing={onSubmit}
         style = {[styles.textInput,{marginBottom:50}]}
+        multiline
         />
         <Pressable  onPress={onSubmit} style = {styles.pressable}>
+            {loading && <ActivityIndicator/>}
             <Text style = {styles.txt}>Add idea</Text>
         </Pressable>
     </View>
@@ -97,6 +107,13 @@ const styles = StyleSheet.create({
         marginVertical:50,
         alignItems:'center',
         justifyContent:'center',
+    },
+    title:{
+        fontSize:30,
+        fontWeight:'bold',
+    },
+    titleContainer:{
+        // flexDirection:'row',
     },
     signInTxt:{
         fontWeight:'500',

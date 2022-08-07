@@ -21,8 +21,9 @@ export type RootStackParamList = {
   NotFound:undefined;
   SignIn:undefined;
   SignUp:undefined;
-  CreateIdea:undefined;
   Splash:undefined;
+  CreateIdea:[string,string];
+  // CreateIdea:string;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

@@ -33,7 +33,7 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
           content={"Yes"}
           onPress={()=>{
               //We want to show the textinput
-              navigation.navigate('CreateIdea');
+              navigation.navigate('CreateIdea',[title1,title2]);
               //Then move on to nextComparison
               nextComparison();
           }}
