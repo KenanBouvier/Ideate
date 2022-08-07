@@ -190,9 +190,18 @@ const resolvers = {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
       
       // TODO only collaborators of this task list should be able to delete
-      await db.collection('IdeaList').removeOne({ _id: ObjectId(id) });
+      // await db.collection('IdeaList').removeOne({ _id: ObjectId(id) });
 
-      return true;
+      const res = await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
+      if(res.userIds[0].toString() !== user._id.toString()){
+        console.log("Bad USER!");
+        return false;
+      }
+      else{
+        console.log("GOOD USER ");
+        await db.collection('IdeaList').deleteOne({ _id: ObjectId(id) });
+        return true;
+      } 
     },
 
     // ToDo Items
@@ -224,7 +233,7 @@ const resolvers = {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
       
       // TODO only collaborators of this task list should be able to delete
-      await db.collection('ToDo').removeOne({ _id: ObjectId(id) });
+      await db.collection('ToDo').deleteOne({ _id: ObjectId(id) });
 
       return true;
     },

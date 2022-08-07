@@ -15,6 +15,9 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
     setIndex((index+1)%(data.length-1)); 
   }
 
+  const title1 = data[index].title;
+  const title2 = data[index+1].title;
+
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -30,7 +33,7 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
           content={"Yes"}
           onPress={()=>{
               //We want to show the textinput
-              <TextInput value = "INPUT here">HWowo</TextInput>
+              navigation.navigate('CreateIdea');
               //Then move on to nextComparison
               nextComparison();
           }}

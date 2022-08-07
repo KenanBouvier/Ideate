@@ -23,6 +23,7 @@ import LinkingConfiguration from './LinkingConfiguration';
 import SignInScreen from '../screens/SignInScreen';
 import SignUpScreen from '../screens/SignUpScreen';
 import SplashScreen from '../screens/SplashScreen';
+import CreateIdeaScreen from '../screens/CreateIdeaScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -43,12 +44,12 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
   return (
     <Stack.Navigator> 
-      {/* <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} /> */}
       <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Ideas" component={IdeasScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} options={{ headerShown: false }} />
       <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -77,10 +78,10 @@ function BottomTabNavigator() {
         name="TabOne"
         component={GenerationScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Get Creative!',
+          // title: 'Get Creative!',
           // headerStyle:{backgroundColor:'#2F4F4F'},
 
-          tabBarIcon: ({ color }) => <FontAwesome5 name="lightbulb" size={24} color="black" />,
+          tabBarIcon: ({ color }) => <FontAwesome5 name="lightbulb" size={24} color="white" />,
           // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable

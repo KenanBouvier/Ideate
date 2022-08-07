@@ -21,6 +21,7 @@ export type RootStackParamList = {
   NotFound:undefined;
   SignIn:undefined;
   SignUp:undefined;
+  CreateIdea:undefined;
   Splash:undefined;
 };
 
