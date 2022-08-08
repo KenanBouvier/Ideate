@@ -33,13 +33,16 @@ export default function SignUpScreen() {
         }
     },[error])
 
-    if(data){
-        console.log("data not null");
-        AsyncStorage.setItem('token',data.signIn.token)  
-            .then(()=>{
-                navigation.navigate("Root");
-            })
-    }
+    useEffect(()=>{
+        if(data){
+            AsyncStorage.setItem('token',data.signIn.token)  
+                .then(()=>{
+                    navigation.navigate("Root");
+                })
+        }
+
+    },[data])
+
 
     const onSubmit = ()=>{
         signIn({variables:{email,password}});

@@ -1,31 +1,32 @@
 import { StyleSheet,Pressable,SafeAreaView,ScrollView, FlatList,TextInput } from 'react-native';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Text, View } from '../components/Themed';
 import StyledButton from '../components/StyledButton';
+import { RootStackScreenProps, RootTabScreenProps } from '../types';
 
 
 interface IdeaSpecificScreen{
   item:{
-    id:string
-    title1:string 
-    title2:string
-    description:string
-  }
+        id:string,
+        title1:string,
+        title2:string,
+        description:string,
+        summary:string,
+        createdAt:string,
+    }
 }
 
-export default function IdeaSpecificScreen(props:IdeaSpecificScreen) {
-    //test item:
-    const item = {
-      id:'1',
-      title1:'This is the first title!',
-      title2:'This is the second title!',
-      summary:"this is a summary of all",
-      description:'Woah this is a description of my idea with these two titles. Hopefully I can think of an idea with them two... maybe' 
-    }
+export default function IdeaSpecificScreen({route,navigation}:RootStackScreenProps<'IdeaSpecificScreen'>) {
+    useEffect(()=>{
+      console.log(route);
+    })
+
+  const {description,title1,title2,summary} = route.params;
 
   const [editing,setEditing] = useState(false);
 
-  const [desc,setDesc] = useState(item.description);
+  const [desc,setDesc] = useState(description);
+  const [summ,setSumm] = useState(summary);
 
   const onPressEdit = ()=>{
     setEditing(true);
@@ -38,8 +39,8 @@ export default function IdeaSpecificScreen(props:IdeaSpecificScreen) {
   return (
     <View style = {styles.container}>
       <View style = {styles.allTitles}>
-        <Text style = {styles.title}>{item.title1}</Text>
-        <Text style ={styles.title}>{item.title2}</Text>
+        <Text style = {styles.title}>{title1}</Text>
+        <Text style ={styles.title}>{title2}</Text>
       </View>
        
       {editing && <TextInput

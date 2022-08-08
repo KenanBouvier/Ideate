@@ -1,9 +1,10 @@
-import React from "react";
+import React from 'react';
+import { useState} from "react";
 import { Pressable, Text, View, StyleSheet } from "react-native";
 import {useNavigation} from '@react-navigation/native';
 
 interface IdeaItem{
-    idea:{
+   idea:{
         id:string,
         title1:string,
         title2:string,
@@ -17,8 +18,10 @@ const IdeaItem = (props:IdeaItem)=>{
     const {id,title1,title2,description,summary } = props.idea;
     const navigation = useNavigation();
 
+    const [paramsPassed,setParamsPassed] = useState({});
+
     const onPress = ()=>{
-      navigation.navigate('IdeaSpecificScreen');
+      navigation.navigate('IdeaSpecificScreen',props.idea);
       // feed in parameters also when navigating
     }
 

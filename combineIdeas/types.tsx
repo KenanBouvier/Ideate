@@ -16,7 +16,14 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
-  IdeaSpecificScreen:undefined;
+  IdeaSpecificScreen:{
+        id:string,
+        title1:string,
+        title2:string,
+        description:string,
+        summary:string,
+        createdAt:string,
+    };
   Ideas:undefined;
   NotFound:undefined;
   SignIn:undefined;
