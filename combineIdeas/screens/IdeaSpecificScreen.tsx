@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet,Pressable,SafeAreaView,ScrollView, FlatList,TextInput } from 'react-native';
+import { StyleSheet,Pressable,SafeAreaView,ScrollView, FlatList,TextInput, ActivityIndicator, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Text, View } from '../components/Themed';
 import StyledButton from '../components/StyledButton';
@@ -29,23 +29,43 @@ interface IdeaSpecificScreen{
 
 export default function IdeaSpecificScreen({route,navigation}:RootStackScreenProps<'IdeaSpecificScreen'>) {
 
-  const {id,description,title1,title2,summary} = route.params;
+  let {id,description,title1,title2,summary} = route.params;
   const [editing,setEditing] = useState(false);
   const [desc,setDesc] = useState(description);
   const [summ,setSummary] = useState(summary);
+  const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
+  const [height1,setHeight1] = useState(30);
+  const [height2,setHeight2] = useState(30);
+
+  useEffect(()=>{
+    console.log("success!")
+    console.log(data);
+  },[data]);
+
+  useEffect(()=>{
+      if(error){
+        Alert.alert('Error updating idea ',error.message);
+      }
+  },[error]);
+
+  if(loading){
+    return <ActivityIndicator/>
+  }
 
   const onPressEdit = ()=>{
     setEditing(true);
   }
   const onPressSubmit = ()=>{
-    // const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
+    setSummary(summ);
+    summary = summ;
+    description = desc;
+    updateIdea({variables:{id,summary,description}});
     setEditing(false);
   }
 
-  const [height1,setHeight1] = React.useState(30);
-  const [height2,setHeight2] = React.useState(20);
 
   return (
+    // <ScrollView>
     <View style = {styles.container}>
       <View style = {styles.allTitles}>
         <Text style = {styles.title}>{title1}</Text>
@@ -83,9 +103,6 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         {!editing && <StyledButton type='next' content={'Edit'} onPress={onPressEdit}/>}
         {editing && <StyledButton type='yes' content={'Submit'} onPress={onPressSubmit}/>}
       </View>
-      {/* <Pressable onPress={onPress}>
-        <Text style = {styles.edit}>Edit</Text>
-      </Pressable> */}
     </View>
   );
 }
@@ -100,6 +117,7 @@ const styles = StyleSheet.create({
     // position:'absolute';
     flex:1,
     justifyContent: 'flex-end',
+    
   },
   title: {
     fontSize:35,
