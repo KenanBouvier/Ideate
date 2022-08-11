@@ -42,7 +42,8 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
     setEditing(false);
   }
 
-  const [height,setHeight] = React.useState(30);
+  const [height1,setHeight1] = React.useState(30);
+  const [height2,setHeight2] = React.useState(20);
 
   return (
     <View style = {styles.container}>
@@ -56,9 +57,9 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         placeholderTextColor={'#48494a'}
         value={summ}
         onChangeText={setSummary}
-        style = {[styles.inputs,{height}]}
+        style = {[styles.inputs,{height:height1}]}
         onContentSizeChange={(event)=>{
-          setHeight(event.nativeEvent.contentSize.height);
+          setHeight1(event.nativeEvent.contentSize.height);
         }}
         multiline
       />}
@@ -68,19 +69,20 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         placeholderTextColor={'#48494a'}
         value={desc}
         onChangeText={setDesc}
-        style = {[styles.inputs,{height}]}
+        style = {[styles.inputs,{height:height2}]}
         onContentSizeChange={(event)=>{
-          setHeight(event.nativeEvent.contentSize.height);
+          setHeight2(event.nativeEvent.contentSize.height);
         }}
         multiline
       />}
 
-      {!editing && <Text style={styles.inputs}>{summary}</Text>}
-      {!editing && <Text style={styles.inputs}>{desc}</Text>}
+      {!editing && <Text style={[styles.inputs,{height:height1}]}>{summary}</Text>}
+      {!editing && <Text style={[styles.inputs,{height:height2}]}>{desc}</Text>}
       {/* Make editable button */}
-      {!editing && <StyledButton type='next' content={'Edit'} onPress={onPressEdit}/>}
-      {editing && <StyledButton type='yes' content={'Submit'} onPress={onPressSubmit}/>}
-
+      <View style = {styles.styledButtons}>
+        {!editing && <StyledButton type='next' content={'Edit'} onPress={onPressEdit}/>}
+        {editing && <StyledButton type='yes' content={'Submit'} onPress={onPressSubmit}/>}
+      </View>
       {/* <Pressable onPress={onPress}>
         <Text style = {styles.edit}>Edit</Text>
       </Pressable> */}
@@ -93,6 +95,11 @@ const styles = StyleSheet.create({
     flex:1,
     padding:20,
 
+  },
+  styledButtons:{
+    // position:'absolute';
+    flex:1,
+    justifyContent: 'flex-end',
   },
   title: {
     fontSize:35,
