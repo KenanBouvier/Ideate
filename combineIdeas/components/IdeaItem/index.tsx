@@ -32,7 +32,8 @@ const IdeaItem = (props:IdeaItem)=>{
                 <View style={styles.articleTitles}>
                     <Text style={styles.titles}>{title1}{" + "}{title2}</Text>
                 </View>
-                <Text style = {styles.ideaContent}>{summary}{description}</Text>
+                {/* Just showing the summary here for simplicity */}
+                <Text style = {styles.ideaContent}>{summary}</Text>
                 </View>
                 <View style={styles.separator} />
             </View>

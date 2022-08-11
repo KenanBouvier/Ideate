@@ -9,9 +9,7 @@ import data from '../components/data';
 import StyledButton from '../components/StyledButton';
 import { useNavigation } from '@react-navigation/native';
 import Navigation from '../navigation';
-import {gql, useMutation} from '@apollo/client';
-
-
+import {gql, useMutation,useQuery} from '@apollo/client';
 
 const ADD_IDEA = gql`
     mutation createIdea($title1:String!, $title2:String!,$description:String,$summary:String){
@@ -30,15 +28,11 @@ const ADD_IDEA = gql`
 }
 `
 
-
 export default function CreateIdeaScreen({ route, navigation }: RootStackScreenProps<'CreateIdea'>) {
     const [summary,setSummary] = useState('');
     const [description,setDescription] = useState('');
     const [title1,setTitle1] = useState('');
     const [title2,setTitle2] = useState('');
-    
-
-    // const navigation = useNavigation();
 
     const [createIdea,{data,error,loading}] = useMutation(ADD_IDEA);
 
@@ -60,12 +54,9 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
         }
     },[data])
 
+
     const onSubmit = ()=>{
         createIdea({variables:{summary, description , title1 , title2}})
-    }
-
-    const redirectSignUp = ()=>{
-        navigation.navigate('SignUp');
     }
 
   return (

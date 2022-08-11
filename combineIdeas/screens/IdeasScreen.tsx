@@ -21,7 +21,6 @@ export default function IdeasScreen() {
 
   // setIdeas on the data from the database 
   const [ideas,setIdeas] = useState([]);
-
   const {data,error,loading} = useQuery(MY_IDEAS);
   
   useEffect(()=>{

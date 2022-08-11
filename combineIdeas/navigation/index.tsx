@@ -78,10 +78,10 @@ function BottomTabNavigator() {
         name="TabOne"
         component={GenerationScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          // title: 'Get Creative!',
+          title: 'Ideate!',
           // headerStyle:{backgroundColor:'#2F4F4F'},
 
-          tabBarIcon: ({ color }) => <FontAwesome5 name="lightbulb" size={24} color="white" />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="lightbulb" color={color} />,
           // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
@@ -116,8 +116,8 @@ function BottomTabNavigator() {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
+  name: React.ComponentProps<typeof FontAwesome5>['name'];
   color: string;
 }) {
-  return <FontAwesome size={30} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome5 size={30} style={{ marginBottom: -3 }} {...props} />;
 }

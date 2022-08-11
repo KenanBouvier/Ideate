@@ -30,7 +30,7 @@ const typeDefs = gql`
     signIn(input: SignInInput!): AuthUser!
 
     createIdea(title1: String!,title2:String!,description:String,summary:String): TaskList!
-    updateTaskList(id: ID!, title: String!): TaskList!
+    updateIdea(id: ID!, summary: String!, description:String!): TaskList!
     deleteTaskList(id: ID!): Boolean!
     addUserToTaskList(taskListId: ID!, userId: ID!): TaskList
 
@@ -149,7 +149,7 @@ const resolvers = {
       return newTaskList;
     },
 
-    updateTaskList: async(_, { id, title }, { db, user }) => {
+    updateIdea: async(_, { id, summary,description }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
 
       const result = await db.collection('IdeaList')
@@ -157,7 +157,8 @@ const resolvers = {
                               _id: ObjectId(id)
                             }, {
                               $set: {
-                                title
+                                summary,
+                                description
                               }
                             })
  
