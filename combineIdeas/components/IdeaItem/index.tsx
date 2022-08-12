@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState} from "react";
-import { Pressable, Text, View, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
+import { Text,View } from '../Themed';
 import {useNavigation} from '@react-navigation/native';
 
 interface IdeaItem{
@@ -15,10 +16,8 @@ interface IdeaItem{
 }
 
 const IdeaItem = (props:IdeaItem)=>{
-    const {id,title1,title2,description,summary } = props.idea;
+    const {title1,title2,description,summary } = props.idea;
     const navigation = useNavigation();
-
-    const [paramsPassed,setParamsPassed] = useState({});
 
     const onPress = ()=>{
       navigation.navigate('IdeaSpecificScreen',props.idea);
@@ -57,10 +56,10 @@ const styles = StyleSheet.create({
   titles:{
     fontSize:23,
     fontWeight:'600',
-    color:'#495867',
+    // color:'#495867',
   },
   ideaContent:{
-    color:'#495867',
+    // color:'#495867',
     fontSize:15,
   },
   separator: {

@@ -39,7 +39,6 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
 
   useEffect(()=>{
     console.log("success!")
-    console.log(data);
   },[data]);
 
   useEffect(()=>{
@@ -96,7 +95,7 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         multiline
       />}
 
-      {!editing && <Text style={[styles.inputs,{height:height1}]}>{summary}</Text>}
+      {!editing && <Text style={[styles.inputs,{height:height1}]}>{summ}</Text>}
       {!editing && <Text style={[styles.inputs,{height:height2}]}>{desc}</Text>}
       {/* Make editable button */}
       <View style = {styles.styledButtons}>

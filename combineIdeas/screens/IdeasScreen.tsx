@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Text, View } from '../components/Themed';
 import IdeaItem from '../components/IdeaItem';
 import { useQuery,gql } from '@apollo/client';
+import { RootTabScreenProps } from '../types';
 
 const MY_IDEAS = gql`
   query myIdeas{
@@ -17,7 +18,7 @@ const MY_IDEAS = gql`
   }
 `
 
-export default function IdeasScreen() {
+export default function IdeasScreen({ navigation }: RootTabScreenProps<'TabTwo'>) {
 
   // setIdeas on the data from the database 
   const [ideas,setIdeas] = useState([]);

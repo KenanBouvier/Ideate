@@ -3,7 +3,7 @@ import {setContext} from '@apollo/client/link/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 
-const URI='http://192.168.13.1:4000/'
+const URI='http://192.168.1.84:4000/'
 
 const httpLink = createHttpLink({
   uri:URI, 

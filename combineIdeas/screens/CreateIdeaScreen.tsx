@@ -27,6 +27,18 @@ const ADD_IDEA = gql`
   }
 }
 `
+const MY_IDEAS = gql`
+  query myIdeas{
+    myIdeas {
+    id
+    title1
+    title2
+    description
+    summary
+    createdAt
+    }
+  }
+`
 
 export default function CreateIdeaScreen({ route, navigation }: RootStackScreenProps<'CreateIdea'>) {
     const [summary,setSummary] = useState('');
@@ -49,14 +61,16 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
 
     useEffect(()=>{
         if(data){
+            console.log("DATA:");
             console.log(data);
-            navigation.navigate('Ideas');
+            // navigation.navigate('Ideas');
+            navigation.navigate('Root');
         }
     },[data])
 
 
     const onSubmit = ()=>{
-        createIdea({variables:{summary, description , title1 , title2}})
+        createIdea({variables:{summary, description , title1 , title2},refetchQueries:[{query:MY_IDEAS}]})
     }
 
   return (
@@ -88,6 +102,7 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
             {loading && <ActivityIndicator/>}
             <Text style = {styles.txt}>Add idea</Text>
         </Pressable>
+
     </View>
   )
 }
