@@ -21,14 +21,16 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>About</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supposed random concepts from which you think of a unique connection. </Text>
 
       <Text style = {styles.title}>Settings</Text>
       <StyledButton type={'next'} content={'Log out'} onPress={logout}/>
 
-      {/* Use a light status bar on iOS to account for the black space above the modal */}
+      <View style = {styles.settings}>
+        <Text style={styles.title}>About</Text>
+        {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
+        <Text>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supposed random concepts from which you think of a unique connection. </Text>
+      </View>
+        {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
   );
@@ -40,6 +42,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding:10,
     // justifyContent: 'center',
+  },
+  settings:{
+    flex:1,
+    justifyContent: 'flex-end',
+    paddingBottom:20,
   },
   title: {
     fontSize: 20,

@@ -44,6 +44,7 @@ export default function SignUpScreen() {
     },[data])
 
     const onSubmit = ()=>{
+        setEmail(email.toLowerCase())
         signIn({variables:{email,password}});
     }
 

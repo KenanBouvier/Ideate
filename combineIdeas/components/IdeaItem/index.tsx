@@ -28,7 +28,7 @@ const IdeaItem = (props:IdeaItem)=>{
 
     const colorScheme = useColorScheme();
     return(
-        <View style = {styles.container}>
+        <View style = {[styles.container,{backgroundColor:Colors[colorScheme].ideaBg}]}>
         <Pressable onPress={onPress}>
             <View>
                 <View style={styles.ideaContainer}>
@@ -48,15 +48,14 @@ export default IdeaItem;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor:'#cfdbe6',
-    backgroundColor:'#b7c9d9',
     borderRadius:10,
     margin:10,
     padding:20,
+    elevation:10,
   },
   articleTitles:{
     flexDirection:"row",
-    justifyContent:'center',
+    paddingBottom:5,
   },
   ideaContainer:{
   },
@@ -70,7 +69,6 @@ const styles = StyleSheet.create({
   separator: {
     opacity:0.25,
     marginVertical: 20,
-    // marginHorizontal:30,
     height: 1.2,
     width:'100%',
   },
