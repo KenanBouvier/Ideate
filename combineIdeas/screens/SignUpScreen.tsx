@@ -4,6 +4,8 @@ import { Text } from '../components/Themed';
 import { useNavigation } from '@react-navigation/native';
 import {useMutation,gql} from '@apollo/client';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 
 const SIGN_UP_MUTATION = gql`
@@ -43,7 +45,6 @@ export default function SignUpScreen() {
 
     }
 
-
     const onSubmit = ()=>{
         signUp({variables:{name,email,password}})
     }
@@ -51,31 +52,32 @@ export default function SignUpScreen() {
     const redirectSignIn = ()=>{
         navigation.navigate('SignIn');
     }
+    const colorScheme = useColorScheme();
 
   return (
     <View style = {styles.container}>
         <TextInput
         placeholder='Name'
-        placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].tint}
         value={name}
         onChangeText={setName}
-        style = {styles.textInput}
+        style = {[styles.textInput,{color:Colors[colorScheme].text}]}
         />
         <TextInput
         placeholder='Email address'
-        placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].tint}
         value={email}
         onChangeText={setEmail}
-        style = {styles.textInput}
+        style = {[styles.textInput,{color:Colors[colorScheme].text}]}
         />
         <TextInput
         placeholder='Password'
-        placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].tint}
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         onSubmitEditing={onSubmit}
-        style = {[styles.textInput,{marginBottom:50}]}
+        style = {[styles.textInput,{marginBottom:50, color:Colors[colorScheme].text}]}
         />
         <Pressable disabled={loading} onPress={onSubmit} style = {styles.pressable}>
             {loading && <ActivityIndicator/>}
@@ -83,7 +85,7 @@ export default function SignUpScreen() {
         </Pressable>
         <Pressable onPress={redirectSignIn} style = {styles.signUpPressable}>
             <View style = {styles.signUpView}>
-                <Text style={styles.signUptxt}>Already have an account? </Text>
+                <Text style={[styles.signUptxt,{color:Colors[colorScheme].text}]}>Already have an account? </Text>
                 <Text style = {styles.signInTxt}>Sign In</Text>
             </View>
         </Pressable>

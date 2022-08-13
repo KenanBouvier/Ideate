@@ -10,6 +10,8 @@ import StyledButton from '../components/StyledButton';
 import { useNavigation } from '@react-navigation/native';
 import Navigation from '../navigation';
 import {gql, useMutation,useQuery} from '@apollo/client';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 const ADD_IDEA = gql`
     mutation createIdea($title1:String!, $title2:String!,$description:String,$summary:String){
@@ -40,14 +42,14 @@ const MY_IDEAS = gql`
   }
 `
 
-export default function CreateIdeaScreen({ route, navigation }: RootStackScreenProps<'CreateIdea'>) {
+export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateIdea'>) {
     const [summary,setSummary] = useState('');
     const [description,setDescription] = useState('');
     const [title1,setTitle1] = useState('');
     const [title2,setTitle2] = useState('');
 
     const [createIdea,{data,error,loading}] = useMutation(ADD_IDEA);
-
+    const navigation = useNavigation();
     useEffect(()=>{
         setTitle1(route.params[0]);
         setTitle2(route.params[1]);
@@ -61,104 +63,90 @@ export default function CreateIdeaScreen({ route, navigation }: RootStackScreenP
 
     useEffect(()=>{
         if(data){
-            console.log("DATA:");
-            console.log(data);
             // navigation.navigate('Ideas');
             navigation.navigate('Root');
         }
     },[data])
 
-
     const onSubmit = ()=>{
-        createIdea({variables:{summary, description , title1 , title2},refetchQueries:[{query:MY_IDEAS}]})
+        createIdea({variables:{summary, description , title1 , title2}, refetchQueries:[{query:MY_IDEAS}]})
     }
+
+    const colorScheme = useColorScheme();
 
   return (
     <View style = {styles.container}>
         <View style = {styles.titleContainer}>
-            <Text style = {styles.title}>{title1}</Text>
-            <Text style ={[styles.title,{alignContent:'center',justifyContent: 'center',}]} >&</Text>
-            <Text style = {styles.title}>{title2}</Text>
+            <Text style = {[styles.title,{color:Colors[colorScheme].text}]}>{title1}</Text>
+            <Text style ={[styles.title,{alignItems:'center',justifyContent: 'center',color:Colors[colorScheme].text}]}>&</Text>
+            <Text style = {[styles.title,{color:Colors[colorScheme].text}]}>{title2}</Text>
         </View>
 
         <TextInput
         placeholder='Brief summary'
-        placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].tint}
         value={summary}
         onChangeText={setSummary}
-        style = {styles.textInput}
+        style = {[styles.textInput,{color:Colors[colorScheme].tint}]}
         multiline
         />
         <TextInput
         placeholder='Description'
-        placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].tint}
         value={description}
         onChangeText={setDescription}
-        onSubmitEditing={onSubmit}
-        style = {[styles.textInput,{marginBottom:50}]}
+        // onSubmitEditing={onSubmit}
+        style = {[styles.textInput,{marginBottom:50,color:Colors[colorScheme].tint,paddingTop:0}]}
         multiline
         />
+
+        <View style = {styles.button}>
         <Pressable  onPress={onSubmit} style = {styles.pressable}>
             {loading && <ActivityIndicator/>}
             <Text style = {styles.txt}>Add idea</Text>
         </Pressable>
-
+        </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
     container:{
-        padding:20,
-        marginVertical:50,
+        flex:1,
+        // padding:10,
         alignItems:'center',
-        justifyContent:'center',
     },
     title:{
         fontSize:30,
         fontWeight:'bold',
+        // alignItems:'baseline',
     },
     titleContainer:{
-        // flexDirection:'row',
-    },
-    signInTxt:{
-        fontWeight:'500',
-        color:'#3d426b',
-    },
-    signUpView:{
-        flexDirection:'row',
-    },
-    signUptxt:{
-        color:'#e0e0e0',
-        fontWeight:'300',
+        justifyContent: 'center',
+        alignItems:'center',
     },
     txt:{
         color:'#e0e0e0',
         fontWeight:'500',
     },
-    signUpPressable:{
-        height:50,
-        width:'100%',
-        justifyContent:'center',
-        alignItems:'center',
-        borderRadius:5,
-        marginVertical:10,
-    },
     pressable:{
         backgroundColor:'#3d426b',
         height:50,
-        width:'100%',
         justifyContent:'center',
         alignItems:'center',
         borderRadius:5,
         marginVertical:10,
-        flexDirection:'row'
+    },
+    button:{
+        flex:1,
+        justifyContent: 'flex-end',
+        width:'90%',
+        paddingBottom:10,
     },
     textInput:{
-        padding:20,
-        color:'#e0e0e0',
+        paddingHorizontal:15,
         fontSize:18,
         width:'100%',
-        marginVertical:25,
+        marginVertical:15,
     }
 });

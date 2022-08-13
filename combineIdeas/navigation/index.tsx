@@ -49,7 +49,8 @@ function RootNavigator() {
       <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}}/>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="Ideas" component={IdeasScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} options={{ headerShown: false }} /> */}
+      <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} />
       <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -79,10 +80,7 @@ function BottomTabNavigator() {
         component={GenerationScreen}
         options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
           title: 'Ideate!',
-          // headerStyle:{backgroundColor:'#2F4F4F'},
-
           tabBarIcon: ({ color }) => <TabBarIcon name="lightbulb" color={color} />,
-          // tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Pressable
               onPress={() => navigation.navigate('Modal')}
@@ -92,7 +90,7 @@ function BottomTabNavigator() {
               <FontAwesome
                 name="info-circle"
                 size={25}
-                color={Colors[colorScheme].text}
+                color={Colors[colorScheme].tint}
                 style={{ marginRight: 15}}
               />
             </Pressable>

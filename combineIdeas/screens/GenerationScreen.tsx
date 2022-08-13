@@ -8,6 +8,8 @@ import TextItem from '../components/TextItem';
 import data from '../components/data';
 import StyledButton from '../components/StyledButton';
 
+let colorScheme;
+
 export default function GenerationScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const [index,setIndex] = useState(0);
 

@@ -1,8 +1,10 @@
 import React from 'react';
-import { useState} from "react";
 import { Pressable, StyleSheet } from "react-native";
-import { Text,View } from '../Themed';
+import {Text,View} from 'react-native';
+
 import {useNavigation} from '@react-navigation/native';
+import useColorScheme from '../../hooks/useColorScheme';
+import Colors from '../../constants/Colors';
 
 interface IdeaItem{
    idea:{
@@ -24,17 +26,18 @@ const IdeaItem = (props:IdeaItem)=>{
       // feed in parameters also when navigating
     }
 
+    const colorScheme = useColorScheme();
     return(
         <Pressable onPress={onPress}>
             <View style={styles.container}>
                 <View style={styles.ideaContainer}>
                 <View style={styles.articleTitles}>
-                    <Text style={styles.titles}>{title1}{" + "}{title2}</Text>
+                    <Text style={[styles.titles,{color:Colors[colorScheme].text}]}>{title1}{" + "}{title2}</Text>
                 </View>
-                {/* Just showing the summary here for simplicity */}
-                <Text style = {styles.ideaContent}>{summary}</Text>
+                {/* Just showing the summary to not overload ideas screen and give enough info to user */}
+                <Text style = {[styles.ideaContent,{color:Colors[colorScheme].text}]}>{summary}</Text>
                 </View>
-                <View style={styles.separator} />
+                <View style={[styles.separator,{backgroundColor:Colors[colorScheme].text}]} />
             </View>
         </Pressable>
     )
@@ -56,17 +59,15 @@ const styles = StyleSheet.create({
   titles:{
     fontSize:23,
     fontWeight:'600',
-    // color:'#495867',
   },
   ideaContent:{
-    // color:'#495867',
     fontSize:15,
   },
   separator: {
     opacity:0.25,
-    backgroundColor:'#495867',
     marginVertical: 20,
-    height: 1,
+    // marginHorizontal:30,
+    height: 1.2,
     width:'100%',
   },
 });

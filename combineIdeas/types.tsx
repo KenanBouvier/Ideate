@@ -24,13 +24,13 @@ export type RootStackParamList = {
         summary:string,
         createdAt:string,
     };
+  // Ideas:undefined;
   Ideas:undefined;
   NotFound:undefined;
   SignIn:undefined;
   SignUp:undefined;
   Splash:undefined;
   CreateIdea:[string,string];
-  // CreateIdea:string;
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<

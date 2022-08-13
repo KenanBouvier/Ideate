@@ -6,6 +6,8 @@ import StyledButton from '../components/StyledButton';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 import { gql,useMutation } from '@apollo/client';
 
+import { KeyboardAvoidingView } from 'react-native';
+
 const UPDATE_IDEA=gql`
   mutation updateIdea($id:ID!, $description: String!,$summary:String!){
   updateIdea(id: $id, description: $description, summary: $summary) {
@@ -27,15 +29,13 @@ interface IdeaSpecificScreen{
     }
 }
 
-export default function IdeaSpecificScreen({route,navigation}:RootStackScreenProps<'IdeaSpecificScreen'>) {
+export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStackScreenProps<'IdeaSpecificScreen'>) {
 
   let {id,description,title1,title2,summary} = route.params;
   const [editing,setEditing] = useState(false);
   const [desc,setDesc] = useState(description);
   const [summ,setSummary] = useState(summary);
   const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
-  const [height1,setHeight1] = useState(30);
-  const [height2,setHeight2] = useState(30);
 
   useEffect(()=>{
     console.log("success!")
@@ -62,9 +62,7 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
     setEditing(false);
   }
 
-
   return (
-    // <ScrollView>
     <View style = {styles.container}>
       <View style = {styles.allTitles}>
         <Text style = {styles.title}>{title1}</Text>
@@ -76,10 +74,7 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         placeholderTextColor={'#48494a'}
         value={summ}
         onChangeText={setSummary}
-        style = {[styles.inputs,{height:height1}]}
-        onContentSizeChange={(event)=>{
-          setHeight1(event.nativeEvent.contentSize.height);
-        }}
+        style = {[styles.inputs]}
         multiline
       />}
 
@@ -88,15 +83,12 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
         placeholderTextColor={'#48494a'}
         value={desc}
         onChangeText={setDesc}
-        style = {[styles.inputs,{height:height2}]}
-        onContentSizeChange={(event)=>{
-          setHeight2(event.nativeEvent.contentSize.height);
-        }}
+        style = {[styles.inputs]}
         multiline
       />}
 
-      {!editing && <Text style={[styles.inputs,{height:height1}]}>{summ}</Text>}
-      {!editing && <Text style={[styles.inputs,{height:height2}]}>{desc}</Text>}
+      {!editing && <Text style={[styles.inputs]}>{summ}</Text>}
+      {!editing && <Text style={[styles.inputs]}>{desc}</Text>}
       {/* Make editable button */}
       <View style = {styles.styledButtons}>
         {!editing && <StyledButton type='next' content={'Edit'} onPress={onPressEdit}/>}
@@ -110,21 +102,18 @@ const styles = StyleSheet.create({
   container: { 
     flex:1,
     padding:20,
-
+  },
+  scrollView:{
+    flex:1,
   },
   styledButtons:{
-    // position:'absolute';
     flex:1,
     justifyContent: 'flex-end',
-    
   },
   title: {
     fontSize:35,
     fontWeight:'500',
     color:"#495867",
-    alignContent:'center',
-    justifyContent: 'center',
-    
   },
   allTitles:{
     // flexDirection:'row',
@@ -132,12 +121,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   inputs:{
-    marginVertical:30,
+    marginTop:10,
+    marginBottom:5,
     fontSize:19.5,
-    color:"#495867",
-  },
-  category:{
-    fontSize:25,
     color:"#495867",
   },
 });

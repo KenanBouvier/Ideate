@@ -40,6 +40,7 @@ export default function IdeasScreen({ navigation }: RootTabScreenProps<'TabTwo'>
     return <ActivityIndicator/>
   }
 
+  
   return (
        <View style = {styles.container}>
         <FlatList
@@ -53,7 +54,6 @@ export default function IdeasScreen({ navigation }: RootTabScreenProps<'TabTwo'>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:20,
-    paddingTop:40,
+    padding:15,
   },
 });

@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
-import styles from "./styles";
+import { Text, View,StyleSheet } from "react-native";
+import Colors from "../../constants/Colors";
+import useColorScheme from "../../hooks/useColorScheme";
 
 interface TextItem{
     title:String;
@@ -8,6 +9,7 @@ interface TextItem{
     description:String;
     first:Boolean;
 }
+
 
 const TextItem = (props:TextItem)=>{
     /* 
@@ -23,14 +25,31 @@ const TextItem = (props:TextItem)=>{
     if (first){
         // padding = "15%";
     }
-    
+
+    const colorScheme = useColorScheme();
     return(
         <View style={[styles.content,{paddingTop:padding}]}>
         {/* <View style={styles.content}> */}
-            <Text style = {styles.title}>{title}</Text>
-            <Text style = {styles.category}>{category}</Text>
-            <Text style = {styles.description}>{description}</Text>
+            <Text style = {[styles.title,{color:Colors[colorScheme].text}]}>{title}</Text>
+            <Text style = {[styles.category,{color:Colors[colorScheme].text}]}>{category}</Text>
+            <Text style = {[styles.description,{color:Colors[colorScheme].text}]}>{description}</Text>
         </View>
     )
 }
 export default TextItem;
+
+const styles = StyleSheet.create({
+    content:{
+        padding:10
+    },
+    title:{
+        fontSize:35,
+        fontWeight:'500',
+    },
+    category:{
+        fontSize:25,
+    },
+    description:{
+        fontSize:19.5,
+    },
+});
