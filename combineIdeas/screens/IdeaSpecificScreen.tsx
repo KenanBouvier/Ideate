@@ -38,7 +38,7 @@ export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStack
   const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
 
   useEffect(()=>{
-    console.log("success!")
+    
   },[data]);
 
   useEffect(()=>{

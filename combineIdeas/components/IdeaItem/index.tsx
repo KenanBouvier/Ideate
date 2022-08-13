@@ -28,8 +28,9 @@ const IdeaItem = (props:IdeaItem)=>{
 
     const colorScheme = useColorScheme();
     return(
+        <View style = {styles.container}>
         <Pressable onPress={onPress}>
-            <View style={styles.container}>
+            <View>
                 <View style={styles.ideaContainer}>
                 <View style={styles.articleTitles}>
                     <Text style={[styles.titles,{color:Colors[colorScheme].text}]}>{title1}{" + "}{title2}</Text>
@@ -37,24 +38,27 @@ const IdeaItem = (props:IdeaItem)=>{
                 {/* Just showing the summary to not overload ideas screen and give enough info to user */}
                 <Text style = {[styles.ideaContent,{color:Colors[colorScheme].text}]}>{summary}</Text>
                 </View>
-                <View style={[styles.separator,{backgroundColor:Colors[colorScheme].text}]} />
+                {/* <View style={[styles.separator,{backgroundColor:Colors[colorScheme].text}]} /> */}
             </View>
         </Pressable>
+        </View>
     )
 }
 export default IdeaItem;
 
 const styles = StyleSheet.create({
   container: {
-    // backgroundColor:"#f7f7ff",
+    // backgroundColor:'#cfdbe6',
+    backgroundColor:'#b7c9d9',
+    borderRadius:10,
+    margin:10,
+    padding:20,
   },
   articleTitles:{
     flexDirection:"row",
-    // backgroundColor:"#f7f7ff",
     justifyContent:'center',
   },
   ideaContainer:{
-    // backgroundColor:"#f7f7ff",    
   },
   titles:{
     fontSize:23,

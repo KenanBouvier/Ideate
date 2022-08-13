@@ -7,7 +7,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import useColorScheme from '../hooks/useColorScheme';
 import Colors from '../constants/Colors';
 
-
 const SIGN_IN_MUTATION = gql`
     mutation signIn($email: String!, $password:String!){
   signIn(input:{email:$email,password:$password}){
@@ -19,7 +18,7 @@ const SIGN_IN_MUTATION = gql`
   }
 }
 `;
-
+   
 export default function SignUpScreen() {
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
@@ -42,9 +41,7 @@ export default function SignUpScreen() {
                     navigation.navigate("Root");
                 })
         }
-
     },[data])
-
 
     const onSubmit = ()=>{
         signIn({variables:{email,password}});
@@ -135,6 +132,5 @@ const styles = StyleSheet.create({
         width:'100%',
         marginVertical:25,
     }
-
 });
 
