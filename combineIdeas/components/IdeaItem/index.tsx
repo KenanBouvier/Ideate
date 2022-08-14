@@ -18,7 +18,7 @@ interface IdeaItem{
 }
 
 const IdeaItem = (props:IdeaItem)=>{
-    const {title1,title2,description,summary } = props.idea;
+    const {title1,title2,description,summary,createdAt } = props.idea;
     const navigation = useNavigation();
 
     const onPress = ()=>{
@@ -32,11 +32,12 @@ const IdeaItem = (props:IdeaItem)=>{
         <Pressable onPress={onPress}>
             <View>
                 <View style={styles.ideaContainer}>
-                <View style={styles.articleTitles}>
-                    <Text style={[styles.titles,{color:Colors[colorScheme].text}]}>{title1}{" + "}{title2}</Text>
-                </View>
-                {/* Just showing the summary to not overload ideas screen and give enough info to user */}
-                <Text style = {[styles.ideaContent,{color:Colors[colorScheme].text}]}>{summary}</Text>
+                  <Text style = {styles.titles}>{createdAt}</Text>
+                  <View style={styles.articleTitles}>
+                      <Text style={[styles.titles,{color:Colors[colorScheme].text}]}>{title1}{" + "}{title2}</Text>
+                  </View>
+                  {/* Just showing the summary to not overload ideas screen and give enough info to user */}
+                  <Text style = {[styles.ideaContent,{color:Colors[colorScheme].text}]}>{summary}</Text>
                 </View>
                 {/* <View style={[styles.separator,{backgroundColor:Colors[colorScheme].text}]} /> */}
             </View>

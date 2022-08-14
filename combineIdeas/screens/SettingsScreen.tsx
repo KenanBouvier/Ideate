@@ -8,7 +8,7 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import StyledButton from '../components/StyledButton';
 import { Text, View } from '../components/Themed';
 
-export default function ModalScreen() {
+export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const logout = ()=>{
@@ -21,15 +21,17 @@ export default function ModalScreen() {
 
   return (
     <View style={styles.container}>
+        <View style = {styles.styledButtons}>
+          <StyledButton type={'next'} content={'Log out'} onPress={logout}/>
+        </View>
 
-      <Text style = {styles.title}>Settings</Text>
-      <StyledButton type={'next'} content={'Log out'} onPress={logout}/>
-
-      <View style = {styles.settings}>
         <Text style={styles.title}>About</Text>
-        {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-        <Text>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supposed random concepts from which you think of a unique connection. </Text>
-      </View>
+        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <View>
+          <Text style = {styles.about}>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supplying radically different concepts from which you think of a unique connection to solve a unique problem.</Text>
+          <Text style = {styles.about}>Developed by <Text style = {{color:'#3d426b',fontWeight:'500'}}>Kenan Bouvier</Text></Text>
+
+        </View>
         {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>
@@ -41,16 +43,25 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     padding:10,
-    // justifyContent: 'center',
   },
-  settings:{
-    flex:1,
-    justifyContent: 'flex-end',
-    paddingBottom:20,
+  styledButtons:{
+    justifyContent: 'center',
+    width:'100%',
+    paddingVertical:30,
+    marginBottom:50,
+  },
+  about:{
+    fontSize:20,
+    padding:10,
   },
   title: {
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
+  },
+  dev:{
+    flexDirection:'row',
+    fontSize:20,
+    // padding:10,
   },
   separator: {
     marginVertical: 30,

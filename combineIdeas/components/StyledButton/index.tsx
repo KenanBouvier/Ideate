@@ -1,5 +1,7 @@
 import React from "react";
 import {Pressable,Text,View} from "react-native";
+import Colors from "../../constants/Colors";
+import useColorScheme from "../../hooks/useColorScheme";
 import styles from "./styles";
 
 /*
@@ -13,24 +15,32 @@ interface StyledButton{
 
 const StyledButton = (props:StyledButton)=>{
     const {type, content, onPress} = props;
+    const colourScheme = useColorScheme();
+
     let bgColor = "";
     if(type == 'yes'){//green
         bgColor = "#b3d9b4";
     }
-    if(type == 'no'){
+    else if(type == 'no'){
         bgColor = "#ff3366";//red
     }
-    if(type=='next'){
+    else if(type=='next'){
         bgColor = '#3d426b';//dark blue
     }
-    
-    // const bgColor = colourMap[type];
-    
+    else if(type=='neutral'){
+        // bgColor = Colors[colourScheme].tabIconDefault;
+        bgColor = '#f9f6ee'
+    }
+    else{
+        bgColor = Colors[colourScheme].ideaBg;
+    }
     return (
-        <View style={styles.container}>
+        <View style={[styles.container]}>
+            {/* <Pressable style = {[styles.button,{backgroundColor:Colors[colourScheme].background,borderWidth:2,borderColor:Colors[colourScheme].borderColour}]} */}
             <Pressable style = {[styles.button,{backgroundColor:bgColor}]}
             onPress = {() => onPress()}>
-                <Text style = {styles.text}>{content}</Text>
+                {/* <Text style = {[styles.text,{color:Colors[colourScheme].background}]}>{content}</Text> */}
+                <Text style = {[styles.text,{color:Colors[colourScheme].background}]}>{content}</Text>
             </Pressable>
         </View>
     )

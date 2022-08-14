@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet,Pressable,SafeAreaView,ScrollView, FlatList,TextInput, ActivityIndicator, Alert } from 'react-native';
+import { StyleSheet,TextInput, ActivityIndicator, Alert } from 'react-native';
 import { useEffect, useState } from 'react';
 import { Text, View } from '../components/Themed';
 import StyledButton from '../components/StyledButton';
 import { RootStackScreenProps, RootTabScreenProps } from '../types';
 import { gql,useMutation } from '@apollo/client';
 
-import { KeyboardAvoidingView } from 'react-native';
+import useColorScheme from '../hooks/useColorScheme';
+import Colors from '../constants/Colors';
 
 const UPDATE_IDEA=gql`
   mutation updateIdea($id:ID!, $description: String!,$summary:String!){
@@ -29,13 +30,14 @@ interface IdeaSpecificScreen{
     }
 }
 
-export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStackScreenProps<'IdeaSpecificScreen'>) {
+export default function IdeaSpecificScreen({route,navigation}:RootStackScreenProps<'IdeaSpecificScreen'>) {
 
   let {id,description,title1,title2,summary} = route.params;
   const [editing,setEditing] = useState(false);
   const [desc,setDesc] = useState(description);
   const [summ,setSummary] = useState(summary);
   const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
+  const colourScheme = useColorScheme();
 
   useEffect(()=>{
     
@@ -58,15 +60,18 @@ export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStack
     setSummary(summ);
     summary = summ;
     description = desc;
+    console.log("Submitting");
     updateIdea({variables:{id,summary,description}});
+    console.log("DONE");
     setEditing(false);
+    console.log("Switched edit type");
   }
 
   return (
     <View style = {styles.container}>
       <View style = {styles.allTitles}>
-        <Text style = {styles.title}>{title1}</Text>
-        <Text style ={styles.title}>{title2}</Text>
+        <Text style = {[styles.title,{color:Colors[colourScheme].text}]}>{title1}</Text>
+        <Text style ={[styles.title,{color:Colors[colourScheme].text}]}>{title2}</Text>
       </View>
        
       {editing && <TextInput
@@ -74,7 +79,7 @@ export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStack
         placeholderTextColor={'#48494a'}
         value={summ}
         onChangeText={setSummary}
-        style = {[styles.inputs]}
+        style = {[styles.inputs,{color:Colors[colourScheme].tint}]}
         multiline
       />}
 
@@ -83,7 +88,7 @@ export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStack
         placeholderTextColor={'#48494a'}
         value={desc}
         onChangeText={setDesc}
-        style = {[styles.inputs]}
+        style = {[styles.inputs,{color:Colors[colourScheme].tint}]}
         multiline
       />}
 
@@ -91,7 +96,7 @@ export default function IdeaSpecificScreen({route,navigation:{goBack}}:RootStack
       {!editing && <Text style={[styles.inputs]}>{desc}</Text>}
       {/* Make editable button */}
       <View style = {styles.styledButtons}>
-        {!editing && <StyledButton type='next' content={'Edit'} onPress={onPressEdit}/>}
+        {!editing && <StyledButton type='neutral' content={'Edit'} onPress={onPressEdit}/>}
         {editing && <StyledButton type='yes' content={'Submit'} onPress={onPressSubmit}/>}
       </View>
     </View>
@@ -109,6 +114,7 @@ const styles = StyleSheet.create({
   styledButtons:{
     flex:1,
     justifyContent: 'flex-end',
+    paddingBottom:'5%',
   },
   title: {
     fontSize:35,

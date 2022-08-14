@@ -44,7 +44,6 @@ export default function SignUpScreen() {
     },[data])
 
     const onSubmit = ()=>{
-        setEmail(email.toLowerCase())
         signIn({variables:{email,password}});
     }
 
@@ -58,14 +57,16 @@ export default function SignUpScreen() {
     <View style = {styles.container}>
         <TextInput
         placeholder='Email address'
-        placeholderTextColor={'#48494a'}
+        // placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={email}
         onChangeText={setEmail}
         style = {[styles.textInput,{color:Colors[colorScheme].text}]}
         />
         <TextInput
         placeholder='Password'
-        placeholderTextColor={'#48494a'}
+        // placeholderTextColor={'#48494a'}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={password}
         onChangeText={setPassword}
         onSubmitEditing={onSubmit}

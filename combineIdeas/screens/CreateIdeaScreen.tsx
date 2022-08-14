@@ -63,12 +63,12 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
 
     useEffect(()=>{
         if(data){
-            // navigation.navigate('Ideas');
             navigation.navigate('Root');
         }
     },[data])
 
     const onSubmit = ()=>{
+        console.log("UPDATING");
         createIdea({variables:{summary, description , title1 , title2}, refetchQueries:[{query:MY_IDEAS}]})
     }
 
@@ -84,7 +84,7 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
 
         <TextInput
         placeholder='Brief summary'
-        placeholderTextColor={Colors[colorScheme].tint}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={summary}
         onChangeText={setSummary}
         style = {[styles.textInput,{color:Colors[colorScheme].tint}]}
@@ -92,7 +92,7 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
         />
         <TextInput
         placeholder='Description'
-        placeholderTextColor={Colors[colorScheme].tint}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={description}
         onChangeText={setDescription}
         // onSubmitEditing={onSubmit}

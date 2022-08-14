@@ -42,7 +42,6 @@ export default function SignUpScreen() {
             .then(()=>{
                 navigation.navigate('Root');
             })
-
     }
 
     const onSubmit = ()=>{
@@ -58,21 +57,21 @@ export default function SignUpScreen() {
     <View style = {styles.container}>
         <TextInput
         placeholder='Name'
-        placeholderTextColor={Colors[colorScheme].tint}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={name}
         onChangeText={setName}
         style = {[styles.textInput,{color:Colors[colorScheme].text}]}
         />
         <TextInput
         placeholder='Email address'
-        placeholderTextColor={Colors[colorScheme].tint}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={email}
         onChangeText={setEmail}
         style = {[styles.textInput,{color:Colors[colorScheme].text}]}
         />
         <TextInput
         placeholder='Password'
-        placeholderTextColor={Colors[colorScheme].tint}
+        placeholderTextColor={Colors[colorScheme].ideaBg}
         value={password}
         onChangeText={setPassword}
         secureTextEntry

@@ -31,7 +31,8 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
 
         <View>
           <StyledButton 
-          type={"yes"} 
+          // type={"yes"} 
+          type={'yes'}
           content={"Yes"}
           onPress={()=>{
               //We want to show the textinput
@@ -40,15 +41,17 @@ export default function GenerationScreen({ navigation }: RootTabScreenProps<'Tab
               nextComparison();
           }}
           />
-          <StyledButton 
+          {/* <StyledButton 
           type={"no"} 
+          // type={'neutral'}
           content={"No"}
           onPress={()=>{
               nextComparison();
           }}
-          />
+          /> */}
           <StyledButton 
-          type={"next"} 
+          // type={"next"} 
+          type={'next'}
           content={"Next"}
           onPress={()=>{
               nextComparison();

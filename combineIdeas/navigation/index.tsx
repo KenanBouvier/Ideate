@@ -13,7 +13,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
+import SettingsScreen from '../screens/SettingsScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import GenerationScreen from '../screens/GenerationScreen';
 import IdeasScreen from '../screens/IdeasScreen';
@@ -47,15 +47,16 @@ function RootNavigator() {
       <Stack.Screen name="Splash" component={SplashScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignIn" component={SignInScreen} options={{headerShown:false}}/>
       <Stack.Screen name="SignUp" component={SignUpScreen} options={{headerShown:false}}/>
-      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false}} />
       <Stack.Screen name="Ideas" component={IdeasScreen} options={{ headerShown: false }} />
       {/* <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} options={{ headerShown: false }} /> */}
       <Stack.Screen name="CreateIdea" component={CreateIdeaScreen} />
-      <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen}/>
+      <Stack.Screen name="IdeaSpecificScreen" component={IdeaSpecificScreen} options={{title:''}}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
-      <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="Modal" component={ModalScreen} />
-      </Stack.Group>
+      <Stack.Screen name="Settings" component={SettingsScreen} options={{headerShown:true, title:'Settings'}} />
+      {/* <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen name="Settings" component={SettingsScreen} />
+      </Stack.Group> */}
     </Stack.Navigator>
   );
 }
@@ -83,7 +84,7 @@ function BottomTabNavigator() {
           tabBarIcon: ({ color }) => <TabBarIcon name="lightbulb" color={color} />,
           headerRight: () => (
             <Pressable
-              onPress={() => navigation.navigate('Modal')}
+              onPress={() => navigation.navigate('Settings')}
               style={
                 ({ pressed }) => ({ opacity: pressed ? 0.5 : 1,})
               }>
