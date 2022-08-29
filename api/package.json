@@ -18,5 +18,8 @@
     "graphql": "^16.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.8.1"
+  },
+  "engines": {
+    "node": "v16.16.0"
   }
 }
