@@ -19,7 +19,7 @@ const SplashScreen = ()=>{
     },[]);
 
     const isAuthenticated = async () =>{
-        return false;
+        //user log in persistence unless logged out.
         const token = await AsyncStorage.getItem('token');
         if(token){
             return true;

@@ -31,6 +31,7 @@ export default function SignUpScreen() {
     useEffect(()=>{
         if(error){
             Alert.alert('Invalid credentials, try again');
+            console.log(error);
         }
     },[error])
 

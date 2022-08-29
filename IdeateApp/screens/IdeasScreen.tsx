@@ -46,7 +46,7 @@ export default function IdeasScreen({ navigation }: RootTabScreenProps<'TabTwo'>
         <FlatList
         data = {ideas}
         renderItem={({item})=><IdeaItem idea={item}/>}
-        inverted
+        // inverted
         />
       </View>
   );
