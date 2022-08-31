@@ -31,7 +31,7 @@ const typeDefs = gql`
 
     createIdea(title1: String!,title2:String!,description:String,summary:String): TaskList!
     updateIdea(id: ID!, summary: String!, description:String!): TaskList!
-    deleteTaskList(id: ID!): Boolean!
+    deleteIdea(id: ID!): Boolean!
   }
 
   input SignUpInput {
@@ -110,9 +110,9 @@ const resolvers = {
       const user = await db.collection('Users').findOne({ email: input.email.toLowerCase()});
       const isPasswordCorrect = user && bcrypt.compareSync(input.password, user.password);
 
-      // if (!user || !isPasswordCorrect) {
-        // throw new Error('Invalid credentials!');
-      // }
+      if (!user || !isPasswordCorrect) {
+        throw new Error('Invalid credentials!');
+      }
 
       return {
         user,
@@ -151,7 +151,7 @@ const resolvers = {
       return await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
     },
 
-    deleteTaskList: async(_, { id }, { db, user }) => {
+    deleteIdea: async(_, { id }, { db, user }) => {
       if (!user) { throw new Error('Authentication Error. Please sign in'); }
       
       // TODO only collaborators of this task list should be able to delete
@@ -159,7 +159,6 @@ const resolvers = {
 
       const res = await db.collection('IdeaList').findOne({ _id: ObjectId(id) });
       if(res.userIds[0].toString() !== user._id.toString()){
-        console.log("Bad USER!");
         return false;
       }
       else{

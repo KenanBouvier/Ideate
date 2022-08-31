@@ -4,7 +4,6 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 import { client } from '../apollo';
 
-import EditScreenInfo from '../components/EditScreenInfo';
 import StyledButton from '../components/StyledButton';
 import { Text, View } from '../components/Themed';
 
@@ -12,25 +11,32 @@ export default function SettingsScreen() {
   const navigation = useNavigation();
 
   const logout = ()=>{
-    AsyncStorage.removeItem('token')
-        .then(()=>{
-            navigation.navigate("SignIn");
-        })
-    client.resetStore();
+    // AsyncStorage.removeItem('token')
+    //     .then(()=>{
+    //         navigation.navigate("SignIn");
+    //     })
+    // client.resetStore();
+    navigation.navigate('SignIn');
+    AsyncStorage.removeItem('token');
+    client.resetStore()
   }
-
   return (
     <View style={styles.container}>
+      <View style = {styles.settings}>
+        <Text></Text>
         <View style = {styles.styledButtons}>
           <StyledButton type={'next'} content={'Log out'} onPress={logout}/>
         </View>
-
-        <Text style={styles.title}>About</Text>
-        <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+      </View>
         <View>
-          <Text style = {styles.about}>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supplying radically different concepts from which you think of a unique connection to solve a unique problem.</Text>
-          <Text style = {styles.about}>Developed by <Text style = {{color:'#3d426b',fontWeight:'500'}}>Kenan Bouvier</Text></Text>
+          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
 
+          <Text style={styles.title}>About</Text>
+          {/* <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
+            <Text style = {styles.about}>This is an app aimed to inspire unique ideas, allowing for different creative solutions. This is done through supplying radically different concepts from which you think of a unique connection to solve a unique problem.</Text>
+            <View style = {styles.dev}>
+              <Text style = {[styles.about,{fontSize:15}]}>Developed by <Text style = {{color:'#3d426b',fontWeight:'500'}}>Kenan Bouvier</Text></Text>
+            </View>
         </View>
         {/* Use a light status bar on iOS to account for the black space above the modal */}
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
@@ -44,28 +50,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding:10,
   },
-  styledButtons:{
-    justifyContent: 'center',
+  settings:{
     width:'100%',
-    paddingVertical:30,
-    marginBottom:50,
+  },
+  styledButtons:{
+    // width:'100%',
+    // paddingVertical:30,
+  },
+  dev:{
+    // backgroundColor:'yellow',
+    flex:0.9,
+    justifyContent:'flex-end'
   },
   about:{
     fontSize:20,
-    padding:10,
+    padding:8,
   },
   title: {
     fontSize: 25,
     fontWeight: 'bold',
-  },
-  dev:{
-    flexDirection:'row',
-    fontSize:20,
-    // padding:10,
+    alignSelf:'center',
   },
   separator: {
     marginVertical: 30,
-    height: 1,
-    width: '80%',
+    height: 2,
   },
 });

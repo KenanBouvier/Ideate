@@ -68,7 +68,6 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
     },[data])
 
     const onSubmit = ()=>{
-        console.log("UPDATING");
         createIdea({variables:{summary, description , title1 , title2}, refetchQueries:[{query:MY_IDEAS}]})
     }
 
@@ -83,7 +82,7 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
         </View>
 
         <TextInput
-        placeholder='Brief summary'
+        placeholder='[Summary]'
         placeholderTextColor={Colors[colorScheme].ideaBg}
         value={summary}
         onChangeText={setSummary}
@@ -91,7 +90,7 @@ export default function CreateIdeaScreen({ route}: RootStackScreenProps<'CreateI
         multiline
         />
         <TextInput
-        placeholder='Description'
+        placeholder='[Description]'
         placeholderTextColor={Colors[colorScheme].ideaBg}
         value={description}
         onChangeText={setDescription}

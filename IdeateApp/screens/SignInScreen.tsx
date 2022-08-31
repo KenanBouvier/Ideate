@@ -27,16 +27,16 @@ export default function SignUpScreen() {
 
     const [signIn,{data,error,loading}] = useMutation(SIGN_IN_MUTATION);
 
-
     useEffect(()=>{
         if(error){
             Alert.alert('Invalid credentials, try again');
-            console.log(error);
+            // console.log(error);
         }
     },[error])
 
     useEffect(()=>{
         if(data){
+            // console.log(data);
             AsyncStorage.setItem('token',data.signIn.token)  
                 .then(()=>{
                     navigation.navigate("Root");

@@ -18,6 +18,23 @@ const UPDATE_IDEA=gql`
   }
 }
 `
+const MY_IDEAS = gql`
+  query myIdeas{
+    myIdeas {
+    id
+    title1
+    title2
+    description
+    summary
+    createdAt
+    }
+  }
+`
+const DELETE_IDEA=gql`
+  mutation deleteIdea($id:ID!){
+    deleteIdea(id:$id)
+  }
+`
 
 interface IdeaSpecificScreen{
   item:{
@@ -32,24 +49,54 @@ interface IdeaSpecificScreen{
 
 export default function IdeaSpecificScreen({route,navigation}:RootStackScreenProps<'IdeaSpecificScreen'>) {
 
-  let {id,description,title1,title2,summary} = route.params;
+  let {id,description,title1,title2,summary,createdAt} = route.params;
   const [editing,setEditing] = useState(false);
   const [desc,setDesc] = useState(description);
   const [summ,setSummary] = useState(summary);
   const [updateIdea,{data,error,loading}] = useMutation(UPDATE_IDEA);
+  const [deleteIdea,{data:dataDelete,error:errorDelete,loading:loadingDelete}] = useMutation(DELETE_IDEA);
   const colourScheme = useColorScheme();
 
+  const showConfirmDialog = () => {
+      return Alert.alert(
+          "Delete Idea",
+          "Are your sure you want to permanently remove this idea?",
+          [
+              {
+              text: "Yes",
+              onPress: () => {
+                deleteIdea({variables:{id},refetchQueries:[{query:MY_IDEAS}]});
+                navigation.navigate('Root');
+              },
+              },
+              {
+              text: "No",
+              },
+          ]
+      );
+  }
+  // Delete idea mutation
   useEffect(()=>{
-    
-  },[data]);
+    if(errorDelete){
+      Alert.alert("Error deleting idea ", errorDelete.message);
+    }
+  },[errorDelete])
 
+  // useEffect(()=>{
+  //   if(dataDelete){
+  //     console.log("DATA:");
+  //     console.log(dataDelete);
+  //   }
+  // },[dataDelete])
+
+  // Update idea mutation
   useEffect(()=>{
       if(error){
         Alert.alert('Error updating idea ',error.message);
       }
   },[error]);
 
-  if(loading){
+  if(loading || loadingDelete){
     return <ActivityIndicator/>
   }
 
@@ -57,16 +104,10 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
     setEditing(true);
   }
   const onPressSubmit = ()=>{
-    setSummary(summ);
-    summary = summ;
-    description = desc;
-    console.log("Submitting");
-    updateIdea({variables:{id,summary,description}});
-    console.log("DONE");
+    updateIdea({variables:{id,summary:summ,description:desc}});
     setEditing(false);
-    console.log("Switched edit type");
   }
-
+  
   return (
     <View style = {styles.container}>
       <View style = {styles.allTitles}>
@@ -75,8 +116,8 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
       </View>
        
       {editing && <TextInput
-        placeholder='Summary description'
-        placeholderTextColor={'#48494a'}
+        placeholder='[Summary]'
+        placeholderTextColor={Colors[colourScheme].ideaBg}
         value={summ}
         onChangeText={setSummary}
         style = {[styles.inputs,{color:Colors[colourScheme].tint}]}
@@ -84,8 +125,8 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
       />}
 
       {editing && <TextInput
-        placeholder='Idea description'
-        placeholderTextColor={'#48494a'}
+        placeholder='[Description]'
+        placeholderTextColor={Colors[colourScheme].ideaBg}
         value={desc}
         onChangeText={setDesc}
         style = {[styles.inputs,{color:Colors[colourScheme].tint}]}
@@ -98,13 +139,14 @@ export default function IdeaSpecificScreen({route,navigation}:RootStackScreenPro
       <View style = {styles.styledButtons}>
         {!editing && <StyledButton type='neutral' content={'Edit'} onPress={onPressEdit}/>}
         {editing && <StyledButton type='yes' content={'Submit'} onPress={onPressSubmit}/>}
+        {editing && <StyledButton type='transparent' content={'Delete'} onPress={showConfirmDialog}/>}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { 
+  container: {
     flex:1,
     padding:20,
   },

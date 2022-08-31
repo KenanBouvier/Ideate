@@ -28,11 +28,15 @@ const IdeaItem = (props:IdeaItem)=>{
 
     const colorScheme = useColorScheme();
     return(
-        <View style = {[styles.container,{backgroundColor:Colors[colorScheme].ideaBg}]}>
+      <View style = {[styles.container,{backgroundColor:Colors[colorScheme].ideaBg}]}>
         <Pressable onPress={onPress}>
             <View>
                 <View style={styles.ideaContainer}>
-                  <Text style = {styles.titles}>{createdAt}</Text>
+                  {/* for date */}
+                  <View> 
+                    <Text style = {[styles.titles,{fontSize:13,alignSelf:'flex-end'}]}>{createdAt.slice(0,10)} 
+                    </Text>
+                  </View>
                   <View style={styles.articleTitles}>
                       <Text style={[styles.titles,{color:Colors[colorScheme].text}]}>{title1}{" + "}{title2}</Text>
                   </View>
@@ -42,7 +46,7 @@ const IdeaItem = (props:IdeaItem)=>{
                 {/* <View style={[styles.separator,{backgroundColor:Colors[colorScheme].text}]} /> */}
             </View>
         </Pressable>
-        </View>
+      </View>
     )
 }
 export default IdeaItem;
@@ -51,7 +55,10 @@ const styles = StyleSheet.create({
   container: {
     borderRadius:10,
     margin:10,
-    padding:20,
+    // padding:20,
+    paddingHorizontal:20,
+    paddingTop:7,
+    paddingBottom:20,
     elevation:10,
   },
   articleTitles:{

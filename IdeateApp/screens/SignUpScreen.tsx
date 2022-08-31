@@ -24,6 +24,25 @@ const SIGN_UP_MUTATION = gql`
 }
 `;
 
+// make sure inputs are valid :)
+function validateInput(name:string,email:string,password:string):boolean{
+    //lengths
+    if(name.length==0){
+        Alert.alert("Enter a name!")
+        return false;
+    }
+    if(email.indexOf('@')<0 || email.indexOf('.')<0){
+        Alert.alert("Enter a valid email!")
+        return false;
+    }
+    if(password.length<4){
+        Alert.alert("Enter a longer password!")
+        return false;
+    }
+
+    return true;
+}
+
 export default function SignUpScreen() {
     const [name,setName] = useState('');
     const [email,setEmail] = useState('');
@@ -45,6 +64,7 @@ export default function SignUpScreen() {
     }
 
     const onSubmit = ()=>{
+        if(!validateInput(name,email,password)) return false;
         signUp({variables:{name,email,password}})
     }
 
